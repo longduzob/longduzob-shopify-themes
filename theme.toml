@@ -1,0 +1,15 @@
+name = "Outdoor Adventure"
+description = "Un thème moderne pour boutiques outdoor, bivouac, randonnée et survie"
+author = "longduzob"
+version = "1.0.0"
+theme_store_id = ""
+supported_features = [
+  "additional_checkout_buttons",
+  "cart_notes",
+  "customer_accounts",
+  "mobile_storefront",
+  "paypal_express_checkout",
+  "predictive_search",
+  "search_autocomplete",
+  "tax_exemptions"
+]
