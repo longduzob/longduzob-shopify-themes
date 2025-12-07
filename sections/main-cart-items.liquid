@@ -1,0 +1,180 @@
+{% comment %}
+  Main Cart Items Section
+{% endcomment %}
+
+<style>
+  .cart {
+    padding: var(--spacing-2xl) 0;
+    background-color: var(--color-off-white);
+  }
+
+  .cart__container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+  }
+
+  .cart__title {
+    font-size: 2.5rem;
+    color: var(--color-forest-green);
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .cart-empty {
+    text-align: center;
+    padding: var(--spacing-2xl) 0;
+  }
+
+  .cart-empty__title {
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-gray);
+  }
+
+  .cart-item {
+    display: grid;
+    grid-template-columns: 120px 1fr auto;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background-color: var(--color-white);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .cart-item__image {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+  }
+
+  .cart-item__details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .cart-item__title {
+    font-size: 1.125rem;
+    color: var(--color-forest-green);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .cart-item__variant {
+    color: var(--color-gray);
+    font-size: 0.875rem;
+  }
+
+  .cart-item__price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-forest-green);
+  }
+
+  .cart-item__remove {
+    background: none;
+    border: none;
+    color: var(--color-gray);
+    cursor: pointer;
+    padding: var(--spacing-xs);
+    transition: color 0.3s ease;
+  }
+
+  .cart-item__remove:hover {
+    color: #EF4444;
+  }
+
+  @media (max-width: 768px) {
+    .cart-item {
+      grid-template-columns: 80px 1fr auto;
+      gap: var(--spacing-sm);
+    }
+
+    .cart-item__image {
+      width: 80px;
+      height: 80px;
+    }
+  }
+</style>
+
+<div class="cart">
+  <div class="cart__container">
+    <h1 class="cart__title">Panier</h1>
+
+    {%- if cart.item_count == 0 -%}
+      <div class="cart-empty">
+        <h2 class="cart-empty__title">Votre panier est vide</h2>
+        <a href="{{ routes.all_products_collection_url }}" class="btn btn-primary">
+          Continuer les achats
+        </a>
+      </div>
+    {%- else -%}
+      <form action="{{ routes.cart_url }}" method="post">
+        {%- for item in cart.items -%}
+          <div class="cart-item">
+            <img src="{{ item.image | image_url: width: 240 }}" 
+                 alt="{{ item.title }}"
+                 class="cart-item__image">
+            
+            <div class="cart-item__details">
+              <div>
+                <h3 class="cart-item__title">{{ item.product.title }}</h3>
+                {%- unless item.variant.title == 'Default Title' -%}
+                  <p class="cart-item__variant">{{ item.variant.title }}</p>
+                {%- endunless -%}
+              </div>
+              
+              <div class="quantity-selector">
+                <button type="button" class="quantity-decrease" 
+                        onclick="updateCartQuantity({{ forloop.index }}, -1)">-</button>
+                <input type="number" 
+                       name="updates[]" 
+                       value="{{ item.quantity }}" 
+                       min="0"
+                       class="quantity-input"
+                       data-index="{{ forloop.index }}">
+                <button type="button" class="quantity-increase"
+                        onclick="updateCartQuantity({{ forloop.index }}, 1)">+</button>
+              </div>
+            </div>
+
+            <div>
+              <p class="cart-item__price">{{ item.final_line_price | money }}</p>
+              <button type="button" 
+                      class="cart-item__remove"
+                      onclick="removeCartItem({{ forloop.index }})">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                  <path d="M5 5L15 15M5 15L15 5" stroke-width="2"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        {%- endfor -%}
+      </form>
+    {%- endif -%}
+  </div>
+</div>
+
+<script>
+function updateCartQuantity(index, change) {
+  const input = document.querySelector(`input[data-index="${index}"]`);
+  const newValue = parseInt(input.value) + change;
+  if (newValue >= 0) {
+    input.value = newValue;
+    input.form.submit();
+  }
+}
+
+function removeCartItem(index) {
+  const input = document.querySelector(`input[data-index="${index}"]`);
+  input.value = 0;
+  input.form.submit();
+}
+</script>
+
+{% schema %}
+{
+  "name": "Items du Panier",
+  "settings": []
+}
+{% endschema %}

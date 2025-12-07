@@ -1,0 +1,184 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "badge": "Nouveau",
+        "title": "L'équipement des vrais aventuriers",
+        "subtitle": "Prépare ton prochain sommet avec notre sélection d'équipements outdoor authentiques et robustes",
+        "button_text_1": "Découvrir",
+        "button_link_1": "/collections/all",
+        "button_text_2": "Nos Guides",
+        "button_link_2": "/blogs/guides",
+        "show_scroll_indicator": true
+      }
+    },
+    "categories": {
+      "type": "categories",
+      "blocks": {
+        "category_1": {
+          "type": "category",
+          "settings": {
+            "title": "Sacs à dos",
+            "icon": "backpack",
+            "product_count": "48",
+            "link": "/collections/backpacks"
+          }
+        },
+        "category_2": {
+          "type": "category",
+          "settings": {
+            "title": "Tentes",
+            "icon": "tent",
+            "product_count": "32",
+            "link": "/collections/tents"
+          }
+        },
+        "category_3": {
+          "type": "category",
+          "settings": {
+            "title": "Éclairage",
+            "icon": "flashlight",
+            "product_count": "24",
+            "link": "/collections/lighting"
+          }
+        },
+        "category_4": {
+          "type": "category",
+          "settings": {
+            "title": "Escalade",
+            "icon": "climbing",
+            "product_count": "56",
+            "link": "/collections/climbing"
+          }
+        },
+        "category_5": {
+          "type": "category",
+          "settings": {
+            "title": "Cuisine",
+            "icon": "cooking",
+            "product_count": "38",
+            "link": "/collections/cooking"
+          }
+        },
+        "category_6": {
+          "type": "category",
+          "settings": {
+            "title": "Équipement",
+            "icon": "gear",
+            "product_count": "67",
+            "link": "/collections/gear"
+          }
+        }
+      },
+      "block_order": [
+        "category_1",
+        "category_2",
+        "category_3",
+        "category_4",
+        "category_5",
+        "category_6"
+      ],
+      "settings": {
+        "title": "Explorer par catégorie",
+        "subtitle": "Trouve l'équipement parfait pour ton aventure"
+      }
+    },
+    "product_carousel": {
+      "type": "product-carousel",
+      "settings": {
+        "title": "Nos Best-Sellers",
+        "subtitle": "Les produits préférés des aventuriers",
+        "products_to_show": 8,
+        "show_description": true
+      }
+    },
+    "blog_guides": {
+      "type": "blog-guides",
+      "settings": {
+        "title": "Guides & Conseils",
+        "subtitle": "Prépare ton aventure avec nos guides d'experts",
+        "articles_to_show": 3,
+        "show_view_all": true
+      }
+    },
+    "gallery": {
+      "type": "gallery",
+      "blocks": {
+        "image_1": {
+          "type": "image",
+          "settings": {
+            "caption": "Sommet conquis",
+            "author": "adventurer_pro"
+          }
+        },
+        "image_2": {
+          "type": "image",
+          "settings": {
+            "caption": "Bivouac sous les étoiles",
+            "author": "wilderness_soul"
+          }
+        },
+        "image_3": {
+          "type": "image",
+          "settings": {
+            "caption": "En route vers l'inconnu",
+            "author": "trail_runner"
+          }
+        },
+        "image_4": {
+          "type": "image",
+          "settings": {
+            "caption": "Pause café au sommet",
+            "author": "mountain_lover"
+          }
+        },
+        "image_5": {
+          "type": "image",
+          "settings": {
+            "caption": "Lever de soleil épique",
+            "author": "sunrise_chaser"
+          }
+        },
+        "image_6": {
+          "type": "image",
+          "settings": {
+            "caption": "L'aventure commence",
+            "author": "explorer_elite"
+          }
+        }
+      },
+      "block_order": [
+        "image_1",
+        "image_2",
+        "image_3",
+        "image_4",
+        "image_5",
+        "image_6"
+      ],
+      "settings": {
+        "title": "La Communauté Wilderness",
+        "subtitle": "Partage ton aventure avec #WildernessExpedition",
+        "hashtag": "#WildernessExpedition"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "title": "Rejoins l'aventure",
+        "subtitle": "Inscris-toi pour recevoir nos guides d'aventure, conseils d'experts et offres exclusives",
+        "placeholder": "Ton adresse email",
+        "button_text": "S'inscrire",
+        "show_benefits": true
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "categories",
+    "product_carousel",
+    "blog_guides",
+    "gallery",
+    "newsletter"
+  ]
+}

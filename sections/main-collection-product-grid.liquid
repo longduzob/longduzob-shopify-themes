@@ -1,0 +1,220 @@
+{% comment %}
+  Main Collection Product Grid
+{% endcomment %}
+
+<style>
+  .collection-grid {
+    padding: var(--spacing-2xl) 0;
+    background-color: var(--color-off-white);
+  }
+
+  .collection-grid__container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+  }
+
+  .collection-grid__toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 2px solid #E5E7EB;
+  }
+
+  .collection-grid__count {
+    color: var(--color-gray);
+  }
+
+  .collection-grid__sort {
+    padding: 0.5rem 1rem;
+    border: 2px solid #E5E7EB;
+    border-radius: var(--radius-md);
+    font-family: var(--font-body);
+    background-color: var(--color-white);
+  }
+
+  .collection-grid__products {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
+    gap: var(--spacing-lg);
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-xl);
+  }
+
+  .pagination__item {
+    padding: 0.5rem 1rem;
+    border: 2px solid #E5E7EB;
+    background-color: var(--color-white);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: var(--color-forest-green);
+    transition: all 0.3s ease;
+  }
+
+  .pagination__item:hover,
+  .pagination__item.active {
+    border-color: var(--color-forest-green);
+    background-color: var(--color-forest-green);
+    color: var(--color-white);
+  }
+
+  @media (max-width: 968px) {
+    .collection-grid__products {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .collection-grid__products {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .collection-grid__toolbar {
+      flex-direction: column;
+      gap: var(--spacing-sm);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .collection-grid__products {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<div class="collection-grid">
+  <div class="collection-grid__container">
+    <div class="collection-grid__toolbar">
+      <div class="collection-grid__count">
+        {{ collection.products_count }} produits
+      </div>
+      {%- if section.settings.enable_sorting -%}
+        <select class="collection-grid__sort" onchange="location.href=this.value;">
+          <option value="?sort_by=manual">Trier par</option>
+          <option value="?sort_by=best-selling" {% if collection.sort_by == 'best-selling' %}selected{% endif %}>
+            Meilleures ventes
+          </option>
+          <option value="?sort_by=title-ascending" {% if collection.sort_by == 'title-ascending' %}selected{% endif %}>
+            A-Z
+          </option>
+          <option value="?sort_by=title-descending" {% if collection.sort_by == 'title-descending' %}selected{% endif %}>
+            Z-A
+          </option>
+          <option value="?sort_by=price-ascending" {% if collection.sort_by == 'price-ascending' %}selected{% endif %}>
+            Prix croissant
+          </option>
+          <option value="?sort_by=price-descending" {% if collection.sort_by == 'price-descending' %}selected{% endif %}>
+            Prix décroissant
+          </option>
+          <option value="?sort_by=created-descending" {% if collection.sort_by == 'created-descending' %}selected{% endif %}>
+            Nouveautés
+          </option>
+        </select>
+      {%- endif -%}
+    </div>
+
+    {%- paginate collection.products by section.settings.products_per_page -%}
+    <div class="collection-grid__products">
+      {%- for product in paginate.items -%}
+        <div class="product-card">
+          <a href="{{ product.url }}">
+            {%- if product.featured_image -%}
+              <img 
+                src="{{ product.featured_image | image_url: width: 400 }}"
+                alt="{{ product.title }}"
+                class="product-card__image"
+                loading="lazy">
+            {%- endif -%}
+          </a>
+          
+          {%- if product.compare_at_price > product.price -%}
+            <span class="product-card__badge">Promo</span>
+          {%- endif -%}
+
+          <div class="product-card__content">
+            <h3 class="product-card__title">
+              <a href="{{ product.url }}">{{ product.title }}</a>
+            </h3>
+            <div class="product-card__price">
+              {%- if product.compare_at_price > product.price -%}
+                <span style="text-decoration: line-through; color: var(--color-gray); font-size: 0.9em;">
+                  {{ product.compare_at_price | money }}
+                </span>
+              {%- endif -%}
+              <span>{{ product.price | money }}</span>
+            </div>
+            <a href="{{ product.url }}" class="btn btn-primary" style="width: 100%; margin-top: var(--spacing-sm);">
+              Voir le produit
+            </a>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if paginate.pages > 1 -%}
+      <div class="pagination">
+        {%- if paginate.previous -%}
+          <a href="{{ paginate.previous.url }}" class="pagination__item">Précédent</a>
+        {%- endif -%}
+
+        {%- for part in paginate.parts -%}
+          {%- if part.is_link -%}
+            <a href="{{ part.url }}" class="pagination__item">{{ part.title }}</a>
+          {%- else -%}
+            <span class="pagination__item active">{{ part.title }}</span>
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- if paginate.next -%}
+          <a href="{{ paginate.next.url }}" class="pagination__item">Suivant</a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Grille de Produits",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Produits par page",
+      "min": 12,
+      "max": 48,
+      "step": 12,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Colonnes (desktop)",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sorting",
+      "label": "Activer le tri",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Afficher la marque",
+      "default": false
+    }
+  ]
+}
+{% endschema %}

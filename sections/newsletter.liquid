@@ -1,0 +1,271 @@
+{% comment %}
+  Newsletter Signup Section
+{% endcomment %}
+
+<style>
+  .newsletter {
+    padding: var(--spacing-2xl) 0;
+    background: linear-gradient(135deg, var(--color-forest-green) 0%, #0F2A1E 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .newsletter::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(212, 165, 116, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .newsletter__container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .newsletter__icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto var(--spacing-md);
+    stroke: var(--color-beige);
+    fill: none;
+  }
+
+  .newsletter__title {
+    font-size: 2.5rem;
+    color: var(--color-white);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .newsletter__subtitle {
+    font-size: 1.125rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .newsletter-form {
+    display: flex;
+    gap: var(--spacing-sm);
+    max-width: 600px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .newsletter-form__input {
+    flex: 1;
+    min-width: 280px;
+    padding: 1rem 1.5rem;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-full);
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--color-white);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .newsletter-form__input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .newsletter-form__input:focus {
+    outline: none;
+    border-color: var(--color-beige);
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .newsletter-form__submit {
+    padding: 1rem 2rem;
+    background-color: var(--color-beige);
+    color: var(--color-white);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .newsletter-form__submit:hover {
+    background-color: #C49564;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .newsletter__benefits {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
+    flex-wrap: wrap;
+  }
+
+  .newsletter__benefit {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+  }
+
+  .newsletter__benefit svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--color-beige);
+  }
+
+  .form-message {
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-md);
+    display: none;
+  }
+
+  .form-message--success {
+    background-color: rgba(16, 185, 129, 0.2);
+    color: #A7F3D0;
+  }
+
+  .form-message--error {
+    background-color: rgba(239, 68, 68, 0.2);
+    color: #FCA5A5;
+  }
+
+  .newsletter__privacy {
+    margin-top: var(--spacing-md);
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  @media (max-width: 768px) {
+    .newsletter__title {
+      font-size: 2rem;
+    }
+
+    .newsletter-form {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .newsletter-form__input {
+      min-width: 100%;
+    }
+
+    .newsletter__benefits {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>
+
+<section class="newsletter">
+  <div class="newsletter__container">
+    <svg class="newsletter__icon" viewBox="0 0 80 80" stroke-width="2">
+      <rect x="10" y="20" width="60" height="40" rx="4"/>
+      <path d="M10 25L40 45L70 25"/>
+      <path d="M30 55L10 60"/>
+      <path d="M50 55L70 60"/>
+    </svg>
+
+    {%- if section.settings.title -%}
+      <h2 class="newsletter__title">{{ section.settings.title }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.subtitle -%}
+      <p class="newsletter__subtitle">{{ section.settings.subtitle }}</p>
+    {%- endif -%}
+
+    <form class="newsletter-form" method="post" action="{{ routes.contact_url }}#newsletter-form">
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <input 
+        type="email" 
+        name="contact[email]"
+        class="newsletter-form__input" 
+        placeholder="{{ section.settings.placeholder | default: 'Ton adresse email' }}"
+        required>
+      <button type="submit" class="newsletter-form__submit">
+        {{ section.settings.button_text | default: "S'inscrire" }}
+      </button>
+      <div class="form-message"></div>
+    </form>
+
+    {%- if section.settings.show_benefits -%}
+      <div class="newsletter__benefits">
+        <div class="newsletter__benefit">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor">
+            <path d="M5 10L9 14L15 6" stroke-width="2"/>
+          </svg>
+          <span>Guides exclusifs</span>
+        </div>
+        <div class="newsletter__benefit">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor">
+            <path d="M5 10L9 14L15 6" stroke-width="2"/>
+          </svg>
+          <span>Offres spéciales</span>
+        </div>
+        <div class="newsletter__benefit">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor">
+            <path d="M5 10L9 14L15 6" stroke-width="2"/>
+          </svg>
+          <span>Nouveautés en avant-première</span>
+        </div>
+      </div>
+    {%- endif -%}
+
+    <p class="newsletter__privacy">
+      Nous respectons ta vie privée. Désabonne-toi à tout moment.
+    </p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "Rejoins l'aventure"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "Inscris-toi pour recevoir nos guides d'aventure, conseils d'experts et offres exclusives"
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Placeholder du champ email",
+      "default": "Ton adresse email"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Texte du bouton",
+      "default": "S'inscrire"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_benefits",
+      "label": "Afficher les bénéfices",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter"
+    }
+  ]
+}
+{% endschema %}

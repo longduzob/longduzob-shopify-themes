@@ -1,0 +1,119 @@
+{% comment %}
+  Main Cart Footer Section
+{% endcomment %}
+
+<style>
+  .cart-footer {
+    padding: 0 0 var(--spacing-2xl);
+    background-color: var(--color-off-white);
+  }
+
+  .cart-footer__container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+  }
+
+  .cart-footer__summary {
+    background-color: var(--color-white);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+  }
+
+  .cart-footer__row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid #E5E7EB;
+  }
+
+  .cart-footer__row:last-of-type {
+    border-bottom: 2px solid var(--color-forest-green);
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+  }
+
+  .cart-footer__label {
+    color: var(--color-gray);
+  }
+
+  .cart-footer__value {
+    font-weight: 600;
+    color: var(--color-forest-green);
+  }
+
+  .cart-footer__total {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .cart-footer__note {
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-sm);
+    background-color: var(--color-off-white);
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    color: var(--color-gray);
+    text-align: center;
+  }
+
+  .cart-footer__checkout {
+    width: 100%;
+    margin-top: var(--spacing-md);
+  }
+
+  .cart-footer__continue {
+    width: 100%;
+    margin-top: var(--spacing-sm);
+  }
+</style>
+
+{%- if cart.item_count > 0 -%}
+  <div class="cart-footer">
+    <div class="cart-footer__container">
+      <div class="cart-footer__summary">
+        <div class="cart-footer__row">
+          <span class="cart-footer__label">Sous-total</span>
+          <span class="cart-footer__value">{{ cart.total_price | money }}</span>
+        </div>
+
+        {%- if cart.cart_level_discount_applications.size > 0 -%}
+          {%- for discount in cart.cart_level_discount_applications -%}
+            <div class="cart-footer__row">
+              <span class="cart-footer__label">Réduction ({{ discount.title }})</span>
+              <span class="cart-footer__value">-{{ discount.total_allocated_amount | money }}</span>
+            </div>
+          {%- endfor -%}
+        {%- endif -%}
+
+        <div class="cart-footer__row">
+          <span class="cart-footer__label cart-footer__total">Total</span>
+          <span class="cart-footer__value cart-footer__total">{{ cart.total_price | money }}</span>
+        </div>
+
+        <p class="cart-footer__note">
+          Livraison et taxes calculées lors du paiement
+        </p>
+
+        <button type="submit" 
+                name="checkout" 
+                class="btn btn-primary cart-footer__checkout">
+          Passer la commande
+        </button>
+
+        <a href="{{ routes.all_products_collection_url }}" 
+           class="btn btn-outline cart-footer__continue">
+          Continuer les achats
+        </a>
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Pied de Panier",
+  "settings": []
+}
+{% endschema %}

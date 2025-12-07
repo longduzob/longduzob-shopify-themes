@@ -1,0 +1,370 @@
+{% comment %}
+  Categories Grid Section
+  6 product categories with icons
+{% endcomment %}
+
+<style>
+  .categories {
+    padding: var(--spacing-2xl) 0;
+    background-color: var(--color-off-white);
+  }
+
+  .categories__header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .categories__title {
+    font-size: 2.5rem;
+    color: var(--color-forest-green);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .categories__subtitle {
+    font-size: 1.125rem;
+    color: var(--color-gray);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .categories__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+  }
+
+  .category-card {
+    position: relative;
+    background-color: var(--color-white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    height: 320px;
+  }
+
+  .category-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .category-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .category-card:hover .category-card__image {
+    transform: scale(1.05);
+  }
+
+  .category-card__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(27, 67, 50, 0.3) 0%, rgba(27, 67, 50, 0.8) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+  }
+
+  .category-card__icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: var(--spacing-md);
+    stroke: var(--color-white);
+    fill: none;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  }
+
+  .category-card__title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-white);
+    margin-bottom: var(--spacing-xs);
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .category-card__count {
+    font-size: 0.95rem;
+    color: var(--color-off-white);
+    opacity: 0.95;
+  }
+
+  .category-card__cta {
+    margin-top: var(--spacing-md);
+    padding: 0.625rem 1.5rem;
+    background-color: var(--color-beige);
+    color: var(--color-white);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.875rem;
+    border-radius: var(--radius-full);
+    border: none;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+  }
+
+  .category-card:hover .category-card__cta {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .categories__grid {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--spacing-md);
+    }
+
+    .category-card {
+      height: 280px;
+    }
+
+    .categories__title {
+      font-size: 2rem;
+    }
+
+    .category-card__icon {
+      width: 50px;
+      height: 50px;
+    }
+
+    .category-card__title {
+      font-size: 1.25rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .categories__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<section class="categories">
+  <div class="container">
+    {%- if section.settings.title -%}
+      <div class="categories__header">
+        <h2 class="categories__title">{{ section.settings.title }}</h2>
+        {%- if section.settings.subtitle -%}
+          <p class="categories__subtitle">{{ section.settings.subtitle }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="categories__grid">
+      {%- for block in section.blocks -%}
+        <a href="{{ block.settings.link }}" class="category-card">
+          {%- if block.settings.image -%}
+            <img 
+              src="{{ block.settings.image | image_url: width: 600 }}"
+              alt="{{ block.settings.title }}"
+              class="category-card__image"
+              loading="lazy">
+          {%- endif -%}
+          
+          <div class="category-card__overlay">
+            <svg class="category-card__icon" viewBox="0 0 60 60" stroke-width="2">
+              {%- case block.settings.icon -%}
+                {%- when 'backpack' -%}
+                  <path d="M20 15C20 10 25 5 30 5C35 5 40 10 40 15"/>
+                  <rect x="15" y="15" width="30" height="35" rx="3"/>
+                  <path d="M20 25H40"/>
+                  <path d="M20 35H40"/>
+                  <circle cx="30" cy="30" r="3"/>
+                {%- when 'tent' -%}
+                  <path d="M10 45L30 10L50 45H10Z"/>
+                  <path d="M30 10V45"/>
+                  <path d="M15 30H45"/>
+                {%- when 'flashlight' -%}
+                  <rect x="22" y="15" width="16" height="30" rx="2"/>
+                  <path d="M22 25H38"/>
+                  <circle cx="30" cy="35" r="4"/>
+                  <path d="M30 10V15"/>
+                {%- when 'climbing' -%}
+                  <circle cx="30" cy="15" r="5"/>
+                  <path d="M30 20L30 35"/>
+                  <path d="M30 25L20 30"/>
+                  <path d="M30 25L40 30"/>
+                  <path d="M30 35L22 45"/>
+                  <path d="M30 35L38 45"/>
+                  <path d="M10 20L50 40" stroke-width="3"/>
+                {%- when 'cooking' -%}
+                  <circle cx="30" cy="30" r="12"/>
+                  <path d="M18 30H42"/>
+                  <path d="M25 20L30 15L35 20"/>
+                  <rect x="28" y="42" width="4" height="8"/>
+                {%- when 'gear' -%}
+                  <circle cx="30" cy="30" r="10"/>
+                  <path d="M30 15V20"/>
+                  <path d="M30 40V45"/>
+                  <path d="M15 30H20"/>
+                  <path d="M40 30H45"/>
+                  <path d="M20 20L24 24"/>
+                  <path d="M36 36L40 40"/>
+                  <path d="M40 20L36 24"/>
+                  <path d="M24 36L20 40"/>
+              {%- endcase -%}
+            </svg>
+
+            <h3 class="category-card__title">{{ block.settings.title }}</h3>
+            {%- if block.settings.product_count -%}
+              <p class="category-card__count">{{ block.settings.product_count }} produits</p>
+            {%- endif -%}
+            <button class="category-card__cta">Découvrir</button>
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Catégories",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "Explorer par catégorie"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "Trouve l'équipement parfait pour ton aventure"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Catégorie",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre",
+          "default": "Sacs à dos"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Lien"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icône",
+          "options": [
+            {
+              "value": "backpack",
+              "label": "Sac à dos"
+            },
+            {
+              "value": "tent",
+              "label": "Tente"
+            },
+            {
+              "value": "flashlight",
+              "label": "Éclairage"
+            },
+            {
+              "value": "climbing",
+              "label": "Escalade"
+            },
+            {
+              "value": "cooking",
+              "label": "Cuisine"
+            },
+            {
+              "value": "gear",
+              "label": "Équipement"
+            }
+          ],
+          "default": "backpack"
+        },
+        {
+          "type": "text",
+          "id": "product_count",
+          "label": "Nombre de produits"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Catégories",
+      "blocks": [
+        {
+          "type": "category",
+          "settings": {
+            "title": "Sacs à dos",
+            "icon": "backpack",
+            "product_count": "48"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "Tentes",
+            "icon": "tent",
+            "product_count": "32"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "Éclairage",
+            "icon": "flashlight",
+            "product_count": "24"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "Escalade",
+            "icon": "climbing",
+            "product_count": "56"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "Cuisine",
+            "icon": "cooking",
+            "product_count": "38"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "Équipement",
+            "icon": "gear",
+            "product_count": "67"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,247 @@
+{% comment %}
+  Product Carousel Section - Best Sellers
+{% endcomment %}
+
+<style>
+  .product-carousel {
+    padding: var(--spacing-2xl) 0;
+    background-color: var(--color-white);
+  }
+
+  .product-carousel__header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .product-carousel__title {
+    font-size: 2.5rem;
+    color: var(--color-forest-green);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .product-carousel__subtitle {
+    font-size: 1.125rem;
+    color: var(--color-gray);
+  }
+
+  .carousel {
+    position: relative;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    overflow: hidden;
+  }
+
+  .carousel-track-container {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .carousel-track {
+    display: flex;
+    gap: var(--spacing-lg);
+    transition: transform 0.5s ease;
+  }
+
+  .carousel-slide {
+    min-width: 300px;
+    flex-shrink: 0;
+  }
+
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--color-white);
+    border: 2px solid var(--color-forest-green);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .carousel-btn:hover {
+    background-color: var(--color-forest-green);
+    color: var(--color-white);
+  }
+
+  .carousel-btn--prev {
+    left: 0;
+  }
+
+  .carousel-btn--next {
+    right: 0;
+  }
+
+  .carousel-btn svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+  }
+
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: var(--spacing-lg);
+  }
+
+  .carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #D1D5DB;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .carousel-dot.active {
+    background-color: var(--color-forest-green);
+    width: 24px;
+    border-radius: 5px;
+  }
+
+  @media (max-width: 768px) {
+    .product-carousel__title {
+      font-size: 2rem;
+    }
+
+    .carousel-slide {
+      min-width: 250px;
+    }
+
+    .carousel-btn {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .carousel-slide {
+      min-width: 200px;
+    }
+  }
+</style>
+
+<section class="product-carousel">
+  <div class="container">
+    {%- if section.settings.title -%}
+      <div class="product-carousel__header">
+        <h2 class="product-carousel__title">{{ section.settings.title }}</h2>
+        {%- if section.settings.subtitle -%}
+          <p class="product-carousel__subtitle">{{ section.settings.subtitle }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="carousel">
+      <div class="carousel-track-container">
+        <div class="carousel-track">
+          {%- if section.settings.collection -%}
+            {%- assign collection = collections[section.settings.collection] -%}
+            {%- for product in collection.products limit: section.settings.products_to_show -%}
+              <div class="carousel-slide">
+                <div class="product-card">
+                  {%- if product.featured_image -%}
+                    <a href="{{ product.url }}">
+                      <img 
+                        src="{{ product.featured_image | image_url: width: 400 }}"
+                        alt="{{ product.title }}"
+                        class="product-card__image"
+                        loading="lazy">
+                    </a>
+                  {%- endif -%}
+                  
+                  {%- if product.compare_at_price > product.price -%}
+                    <span class="product-card__badge">Promo</span>
+                  {%- endif -%}
+
+                  <div class="product-card__content">
+                    <h3 class="product-card__title">
+                      <a href="{{ product.url }}">{{ product.title }}</a>
+                    </h3>
+                    <div class="product-card__price">
+                      {%- if product.compare_at_price > product.price -%}
+                        <span class="price-compare">{{ product.compare_at_price | money }}</span>
+                      {%- endif -%}
+                      <span>{{ product.price | money }}</span>
+                    </div>
+                    {%- if section.settings.show_description -%}
+                      <p class="product-card__description">{{ product.description | strip_html | truncate: 80 }}</p>
+                    {%- endif -%}
+                    <a href="{{ product.url }}" class="btn btn-primary">Voir le produit</a>
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+      </div>
+
+      <button class="carousel-btn carousel-btn--prev" aria-label="Précédent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M15 18L9 12L15 6" stroke-width="2"/>
+        </svg>
+      </button>
+      
+      <button class="carousel-btn carousel-btn--next" aria-label="Suivant">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M9 18L15 12L9 6" stroke-width="2"/>
+        </svg>
+      </button>
+
+      <div class="carousel-dots"></div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Carrousel Produits",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "Nos Best-Sellers"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "Les produits préférés des aventuriers"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Nombre de produits",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Afficher la description",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Carrousel Produits"
+    }
+  ]
+}
+{% endschema %}
