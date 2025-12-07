@@ -1,0 +1,232 @@
+{% comment %}
+  Community Gallery Section
+{% endcomment %}
+
+<style>
+  .gallery {
+    padding: var(--spacing-2xl) 0;
+    background-color: var(--color-white);
+  }
+
+  .gallery__header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .gallery__title {
+    font-size: 2.5rem;
+    color: var(--color-forest-green);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .gallery__subtitle {
+    font-size: 1.125rem;
+    color: var(--color-gray);
+  }
+
+  .gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+  }
+
+  .gallery__item {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    aspect-ratio: 1;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .gallery__item:hover {
+    transform: scale(1.05);
+  }
+
+  .gallery__item:nth-child(4n+1) {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .gallery__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .gallery__item:hover .gallery__image {
+    transform: scale(1.1);
+  }
+
+  .gallery__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(27, 67, 50, 0.8) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: var(--spacing-md);
+  }
+
+  .gallery__item:hover .gallery__overlay {
+    opacity: 1;
+  }
+
+  .gallery__caption {
+    color: var(--color-white);
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  .gallery__author {
+    color: var(--color-off-white);
+    font-size: 0.875rem;
+  }
+
+  .gallery__hashtag {
+    text-align: center;
+    margin-top: var(--spacing-xl);
+    font-size: 1.5rem;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--color-beige);
+  }
+
+  @media (max-width: 768px) {
+    .gallery__title {
+      font-size: 2rem;
+    }
+
+    .gallery__grid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .gallery__item:nth-child(4n+1) {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+  }
+</style>
+
+<section class="gallery">
+  <div class="container">
+    {%- if section.settings.title -%}
+      <div class="gallery__header">
+        <h2 class="gallery__title">{{ section.settings.title }}</h2>
+        {%- if section.settings.subtitle -%}
+          <p class="gallery__subtitle">{{ section.settings.subtitle }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="gallery__grid">
+      {%- for block in section.blocks -%}
+        <div class="gallery__item">
+          {%- if block.settings.image -%}
+            <img 
+              src="{{ block.settings.image | image_url: width: 800 }}"
+              alt="{{ block.settings.caption }}"
+              class="gallery__image"
+              loading="lazy">
+          {%- endif -%}
+          
+          <div class="gallery__overlay">
+            {%- if block.settings.caption -%}
+              <p class="gallery__caption">{{ block.settings.caption }}</p>
+            {%- endif -%}
+            {%- if block.settings.author -%}
+              <p class="gallery__author">@{{ block.settings.author }}</p>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.hashtag -%}
+      <p class="gallery__hashtag">{{ section.settings.hashtag }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Galerie Communauté",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "La Communauté Wilderness"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "Partage ton aventure avec #WildernessExpedition"
+    },
+    {
+      "type": "text",
+      "id": "hashtag",
+      "label": "Hashtag",
+      "default": "#WildernessExpedition"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Légende"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Auteur (nom d'utilisateur)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Galerie Communauté",
+      "blocks": [
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

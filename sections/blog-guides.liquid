@@ -1,0 +1,226 @@
+{% comment %}
+  Blog/Guides Section
+{% endcomment %}
+
+<style>
+  .blog-guides {
+    padding: var(--spacing-2xl) 0;
+    background-color: var(--color-off-white);
+  }
+
+  .blog-guides__header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .blog-guides__title {
+    font-size: 2.5rem;
+    color: var(--color-forest-green);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .blog-guides__subtitle {
+    font-size: 1.125rem;
+    color: var(--color-gray);
+  }
+
+  .blog-guides__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--spacing-lg);
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+  }
+
+  .blog-card {
+    background-color: var(--color-white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .blog-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .blog-card__image {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+  }
+
+  .blog-card__content {
+    padding: var(--spacing-md);
+  }
+
+  .blog-card__meta {
+    display: flex;
+    gap: var(--spacing-md);
+    font-size: 0.875rem;
+    color: var(--color-gray);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .blog-card__category {
+    background-color: var(--color-beige);
+    color: var(--color-white);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+  }
+
+  .blog-card__title {
+    font-size: 1.375rem;
+    color: var(--color-forest-green);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .blog-card__excerpt {
+    color: var(--color-gray);
+    margin-bottom: var(--spacing-md);
+    line-height: 1.6;
+  }
+
+  .blog-card__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-forest-green);
+    font-weight: 600;
+    text-decoration: none;
+    transition: gap 0.3s ease;
+  }
+
+  .blog-card__cta:hover {
+    gap: 0.75rem;
+  }
+
+  .blog-guides__cta-wrapper {
+    text-align: center;
+    margin-top: var(--spacing-xl);
+  }
+
+  @media (max-width: 768px) {
+    .blog-guides__title {
+      font-size: 2rem;
+    }
+
+    .blog-guides__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<section class="blog-guides">
+  <div class="container">
+    {%- if section.settings.title -%}
+      <div class="blog-guides__header">
+        <h2 class="blog-guides__title">{{ section.settings.title }}</h2>
+        {%- if section.settings.subtitle -%}
+          <p class="blog-guides__subtitle">{{ section.settings.subtitle }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="blog-guides__grid">
+      {%- if section.settings.blog -%}
+        {%- assign blog = blogs[section.settings.blog] -%}
+        {%- for article in blog.articles limit: section.settings.articles_to_show -%}
+          <article class="blog-card">
+            {%- if article.image -%}
+              <a href="{{ article.url }}">
+                <img 
+                  src="{{ article.image | image_url: width: 600 }}"
+                  alt="{{ article.title }}"
+                  class="blog-card__image"
+                  loading="lazy">
+              </a>
+            {%- endif -%}
+            
+            <div class="blog-card__content">
+              <div class="blog-card__meta">
+                <span class="blog-card__category">{{ article.tags.first | default: 'Guide' }}</span>
+                <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+                  {{ article.published_at | date: '%d %B %Y' }}
+                </time>
+              </div>
+
+              <h3 class="blog-card__title">
+                <a href="{{ article.url }}">{{ article.title }}</a>
+              </h3>
+
+              <p class="blog-card__excerpt">
+                {{ article.excerpt_or_content | strip_html | truncate: 120 }}
+              </p>
+
+              <a href="{{ article.url }}" class="blog-card__cta">
+                Lire la suite
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                  <path d="M5 10H15" stroke-width="2"/>
+                  <path d="M10 5L15 10L10 15" stroke-width="2"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.show_view_all -%}
+      <div class="blog-guides__cta-wrapper">
+        <a href="{{ blogs[section.settings.blog].url }}" class="btn btn-secondary">
+          Voir tous les guides
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Blog / Guides",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "Guides & Conseils"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "Prépare ton aventure avec nos guides d'experts"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "range",
+      "id": "articles_to_show",
+      "label": "Nombre d'articles",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Afficher 'Voir tous les guides'",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog / Guides"
+    }
+  ]
+}
+{% endschema %}

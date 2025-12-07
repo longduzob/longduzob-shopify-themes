@@ -1,0 +1,379 @@
+{% comment %}
+  Footer Section
+{% endcomment %}
+
+<style>
+  .footer {
+    background-color: var(--color-forest-green);
+    color: var(--color-white);
+    padding: var(--spacing-2xl) 0 var(--spacing-md);
+  }
+
+  .footer__main {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: var(--spacing-xl);
+    max-width: 1280px;
+    margin: 0 auto var(--spacing-xl);
+    padding: 0 var(--spacing-md);
+  }
+
+  .footer__column-title {
+    font-family: var(--font-heading);
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-beige);
+  }
+
+  .footer__about {
+    padding-right: var(--spacing-lg);
+  }
+
+  .footer__logo {
+    display: flex;
+    align-items: center;
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-white);
+  }
+
+  .footer__logo-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 0.5rem;
+  }
+
+  .footer__description {
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .footer__social {
+    display: flex;
+    gap: var(--spacing-sm);
+  }
+
+  .footer__social-link {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .footer__social-link:hover {
+    background-color: var(--color-beige);
+    transform: translateY(-2px);
+  }
+
+  .footer__social-link svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+  }
+
+  .footer__menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer__menu-item {
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .footer__menu-link {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: inline-block;
+  }
+
+  .footer__menu-link:hover {
+    color: var(--color-beige);
+    transform: translateX(4px);
+  }
+
+  .footer__contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: var(--spacing-sm);
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .footer__contact-item svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--color-beige);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .footer__bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: var(--spacing-md);
+    max-width: 1280px;
+    margin: 0 auto;
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+  }
+
+  .footer__bottom-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+  }
+
+  .footer__copyright {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.875rem;
+  }
+
+  .footer__payment {
+    display: flex;
+    gap: var(--spacing-sm);
+    align-items: center;
+  }
+
+  .footer__payment-icon {
+    height: 24px;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+  }
+
+  .footer__payment-icon:hover {
+    opacity: 1;
+  }
+
+  .footer__legal {
+    display: flex;
+    gap: var(--spacing-md);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer__legal-link {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.3s ease;
+  }
+
+  .footer__legal-link:hover {
+    color: var(--color-beige);
+  }
+
+  @media (max-width: 968px) {
+    .footer__main {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer__about {
+      grid-column: span 2;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer__main {
+      grid-template-columns: 1fr;
+    }
+
+    .footer__about {
+      grid-column: span 1;
+    }
+
+    .footer__bottom-content {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .footer__legal {
+      flex-direction: column;
+      gap: var(--spacing-xs);
+    }
+  }
+</style>
+
+<footer class="footer" role="contentinfo">
+  <div class="footer__main">
+    <div class="footer__about">
+      <a href="{{ routes.root_url }}" class="footer__logo">
+        <svg class="footer__logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 5L5 15L20 25L35 15L20 5Z" fill="#D4A574"/>
+          <path d="M5 25L20 35L35 25" stroke="#F5F3ED" stroke-width="2"/>
+          <path d="M20 15V35" stroke="#F5F3ED" stroke-width="2"/>
+        </svg>
+        <span>{{ section.settings.logo_text | default: shop.name }}</span>
+      </a>
+      <p class="footer__description">
+        {{ section.settings.description | default: "L'équipement des vrais aventuriers. Prépare ton prochain sommet avec notre sélection d'équipements outdoor authentiques et robustes." }}
+      </p>
+      <div class="footer__social">
+        {%- if section.settings.social_facebook -%}
+          <a href="{{ section.settings.social_facebook }}" class="footer__social-link" aria-label="Facebook" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M18 2H15C13.6739 2 12.4021 2.52678 11.4645 3.46447C10.5268 4.40215 10 5.67392 10 7V10H7V14H10V22H14V14H17L18 10H14V7C14 6.73478 14.1054 6.48043 14.2929 6.29289C14.4804 6.10536 14.7348 6 15 6H18V2Z" stroke-width="2"/>
+            </svg>
+          </a>
+        {%- endif -%}
+        {%- if section.settings.social_instagram -%}
+          <a href="{{ section.settings.social_instagram }}" class="footer__social-link" aria-label="Instagram" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <rect x="2" y="2" width="20" height="20" rx="5" stroke-width="2"/>
+              <circle cx="12" cy="12" r="4" stroke-width="2"/>
+              <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/>
+            </svg>
+          </a>
+        {%- endif -%}
+        {%- if section.settings.social_youtube -%}
+          <a href="{{ section.settings.social_youtube }}" class="footer__social-link" aria-label="YouTube" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M22.54 6.42C22.4212 5.94541 22.1793 5.51057 21.8387 5.15941C21.498 4.80824 21.0708 4.55318 20.6 4.42C18.88 4 12 4 12 4C12 4 5.12 4 3.4 4.46C2.92925 4.59318 2.502 4.84824 2.16131 5.19941C1.82062 5.55057 1.57875 5.98541 1.46 6.46C1.14521 8.20556 0.991238 9.97631 1 11.75C0.988779 13.537 1.14275 15.3213 1.46 17.08C1.59206 17.5398 1.83777 17.9581 2.17235 18.2945C2.50692 18.6308 2.91926 18.8738 3.37 19C5.1 19.46 12 19.46 12 19.46C12 19.46 18.88 19.46 20.6 19C21.0708 18.8668 21.498 18.6118 21.8387 18.2606C22.1793 17.9094 22.4212 17.4746 22.54 17C22.8524 15.2676 23.0063 13.5103 23 11.75C23.0112 9.96295 22.8572 8.17872 22.54 6.42Z" stroke-width="2"/>
+              <path d="M9.75 15.02L15.5 11.75L9.75 8.48V15.02Z" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="footer__column">
+      <h3 class="footer__column-title">Navigation</h3>
+      <ul class="footer__menu">
+        {%- for link in linklists[section.settings.menu_1].links -%}
+          <li class="footer__menu-item">
+            <a href="{{ link.url }}" class="footer__menu-link">{{ link.title }}</a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+
+    <div class="footer__column">
+      <h3 class="footer__column-title">Aide</h3>
+      <ul class="footer__menu">
+        {%- for link in linklists[section.settings.menu_2].links -%}
+          <li class="footer__menu-item">
+            <a href="{{ link.url }}" class="footer__menu-link">{{ link.title }}</a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+
+    <div class="footer__column">
+      <h3 class="footer__column-title">Contact</h3>
+      {%- if section.settings.contact_email -%}
+        <div class="footer__contact-item">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor">
+            <rect x="2" y="4" width="16" height="12" rx="2" stroke-width="1.5"/>
+            <path d="M2 6L10 11L18 6" stroke-width="1.5"/>
+          </svg>
+          <a href="mailto:{{ section.settings.contact_email }}" class="footer__menu-link">
+            {{ section.settings.contact_email }}
+          </a>
+        </div>
+      {%- endif -%}
+      {%- if section.settings.contact_phone -%}
+        <div class="footer__contact-item">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor">
+            <path d="M2 3C2 2.44772 2.44772 2 3 2H5.15287C5.64171 2 6.0589 2.35341 6.13927 2.8356L6.87858 7.27147C6.95075 7.70451 6.73206 8.13397 6.3394 8.3303L4.79126 9.10437C5.90756 11.8783 8.12168 14.0924 10.8956 15.2087L11.6697 13.6606C11.866 13.2679 12.2955 13.0492 12.7285 13.1214L17.1644 13.8607C17.6466 13.9411 18 14.3583 18 14.8471V17C18 17.5523 17.5523 18 17 18H15C7.8203 18 2 12.1797 2 5V3Z" stroke-width="1.5"/>
+          </svg>
+          <a href="tel:{{ section.settings.contact_phone }}" class="footer__menu-link">
+            {{ section.settings.contact_phone }}
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="footer__bottom-content">
+      <p class="footer__copyright">
+        &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. Tous droits réservés.
+      </p>
+      
+      <ul class="footer__legal">
+        <li><a href="{{ pages['privacy-policy'].url }}" class="footer__legal-link">Confidentialité</a></li>
+        <li><a href="{{ pages['terms-of-service'].url }}" class="footer__legal-link">Conditions</a></li>
+        <li><a href="{{ pages['refund-policy'].url }}" class="footer__legal-link">Retours</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Pied de page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Texte du logo",
+      "default": "Wilderness Expedition"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "L'équipement des vrais aventuriers. Prépare ton prochain sommet avec notre sélection d'équipements outdoor authentiques et robustes."
+    },
+    {
+      "type": "header",
+      "content": "Réseaux sociaux"
+    },
+    {
+      "type": "url",
+      "id": "social_facebook",
+      "label": "Facebook"
+    },
+    {
+      "type": "url",
+      "id": "social_instagram",
+      "label": "Instagram"
+    },
+    {
+      "type": "url",
+      "id": "social_youtube",
+      "label": "YouTube"
+    },
+    {
+      "type": "header",
+      "content": "Menus"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_1",
+      "label": "Menu 1 (Navigation)",
+      "default": "footer"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_2",
+      "label": "Menu 2 (Aide)"
+    },
+    {
+      "type": "header",
+      "content": "Contact"
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "Email"
+    },
+    {
+      "type": "text",
+      "id": "contact_phone",
+      "label": "Téléphone"
+    }
+  ]
+}
+{% endschema %}
