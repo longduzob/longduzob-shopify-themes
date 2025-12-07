@@ -1,0 +1,158 @@
+{% comment %}
+  SVG Icons for Wilderness Expedition Theme
+  Usage: {% render 'icons', icon: 'mountain' %}
+{% endcomment %}
+
+{%- case icon -%}
+
+{%- when 'mountain' -%}
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {{ attributes }}>
+  <path d="M3 20L8 10L12 15L16 8L21 20H3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M12 15L14 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>
+
+{%- when 'compass' -%}
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {{ attributes }}>
+  <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+  <path d="M16 8L10 10L8 16L14 14L16 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="12" cy="12" r="2" fill="currentColor"/>
+</svg>
+
+{%- when 'tent' -%}
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {{ attributes }}>
+  <path d="M3 20L12 4L21 20H3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M12 4V20" stroke="currentColor" stroke-width="2"/>
+  <path d="M6 14H18" stroke="currentColor" stroke-width="2"/>
+</svg>
+
+{%- when 'backpack' -%}
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {{ attributes }}>
+  <path d="M8 7C8 5.34315 9.34315 4 11 4H13C14.6569 4 16 5.34315 16 7" stroke="currentColor" stroke-width="2"/>
+  <rect x="6" y="7" width="12" height="13" rx="2" stroke="currentColor" stroke-width="2"/>
+  <path d="M9 12H15" stroke="currentColor" stroke-width="2"/>
+  <circle cx="12" cy="15" r="1.5" fill="currentColor"/>
+</svg>
+
+{%- when 'campfire' -%}
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {{ attributes }}>
+  <path d="M12 2C12 2 9 5 9 9C9 11 10.3431 12 12 12C13.6569 12 15 11 15 9C15 5 12 2 12 2Z" stroke="currentColor" stroke-width="2"/>
+  <path d="M5 20H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <path d="M7 16L5 20" stroke="currentColor" stroke-width="2"/>
+  <path d="M17 16L19 20" stroke="currentColor" stroke-width="2"/>
+  <path d="M12 16V12" stroke="currentColor" stroke-width="2"/>
+</svg>
+
+{%- when 'tree' -%}
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {{ attributes }}>
+  <path d="M12 3L8 8H10L7 12H9L6 17H18L15 12H17L14 8H16L12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M12 17V22" stroke="currentColor" stroke-width="2"/>
+</svg>
+
+{%- when 'map' -%}
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {{ attributes }}>
+  <path d="M3 6L9 4L15 6L21 4V18L15 20L9 18L3 20V6Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M9 4V18" stroke="currentColor" stroke-width="2"/>
+  <path d="M15 6V20" stroke="currentColor" stroke-width="2"/>
+</svg>
+
+{%- when 'hiking' -%}
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {{ attributes }}>
+  <circle cx="14" cy="4" r="2" stroke="currentColor" stroke-width="2"/>
+  <path d="M10 8L12 14L10 22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <path d="M14 10L16 14L18 22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <path d="M10 8L14 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <path d="M6 10L10 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>
+
+{%- when 'flashlight' -%}
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {{ attributes }}>
+  <rect x="9" y="2" width="6" height="20" rx="1" stroke="currentColor" stroke-width="2"/>
+  <path d="M9 7H15" stroke="currentColor" stroke-width="2"/>
+  <circle cx="12" cy="13" r="2" stroke="currentColor" stroke-width="2"/>
+</svg>
+
+{%- when 'boots' -%}
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {{ attributes }}>
+  <path d="M8 2V14C8 14 6 14 6 16V20C6 21 7 22 8 22H12C13 22 14 21 14 20V16C14 14 12 14 12 14V2H8Z" stroke="currentColor" stroke-width="2"/>
+  <path d="M8 8H12" stroke="currentColor" stroke-width="2"/>
+  <path d="M8 12H12" stroke="currentColor" stroke-width="2"/>
+</svg>
+
+{%- when 'knife' -%}
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {{ attributes }}>
+  <path d="M3 12L12 21L21 12L12 3L3 12Z" stroke="currentColor" stroke-width="2"/>
+  <path d="M12 3L12 21" stroke="currentColor" stroke-width="2"/>
+  <rect x="10" y="8" width="4" height="8" rx="0.5" stroke="currentColor" stroke-width="1.5"/>
+</svg>
+
+{%- when 'water-bottle' -%}
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {{ attributes }}>
+  <path d="M9 2H15V4H9V2Z" stroke="currentColor" stroke-width="2"/>
+  <rect x="8" y="4" width="8" height="16" rx="2" stroke="currentColor" stroke-width="2"/>
+  <path d="M10 10H14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>
+
+{%- when 'first-aid' -%}
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {{ attributes }}>
+  <rect x="3" y="6" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
+  <path d="M12 9V17" stroke="currentColor" stroke-width="2"/>
+  <path d="M8 13H16" stroke="currentColor" stroke-width="2"/>
+</svg>
+
+{%- when 'sleeping-bag' -%}
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {{ attributes }}>
+  <rect x="6" y="4" width="12" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+  <path d="M6 10H18" stroke="currentColor" stroke-width="2"/>
+  <circle cx="12" cy="7" r="1.5" fill="currentColor"/>
+</svg>
+
+{%- when 'binoculars' -%}
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {{ attributes }}>
+  <circle cx="7" cy="14" r="5" stroke="currentColor" stroke-width="2"/>
+  <circle cx="17" cy="14" r="5" stroke="currentColor" stroke-width="2"/>
+  <path d="M12 9H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <path d="M7 9H17" stroke="currentColor" stroke-width="2"/>
+</svg>
+
+{%- when 'rope' -%}
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {{ attributes }}>
+  <path d="M6 4C6 4 4 6 4 8C4 10 6 12 8 12C10 12 12 10 12 8C12 6 10 4 10 4" stroke="currentColor" stroke-width="2"/>
+  <path d="M14 12C14 12 12 14 12 16C12 18 14 20 16 20C18 20 20 18 20 16C20 14 18 12 18 12" stroke="currentColor" stroke-width="2"/>
+  <path d="M10 8L14 12" stroke="currentColor" stroke-width="2"/>
+</svg>
+
+{%- when 'carabiner' -%}
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {{ attributes }}>
+  <path d="M14 4H10C7 4 5 6 5 9V15C5 18 7 20 10 20H14C17 20 19 18 19 15V9C19 6 17 4 14 4Z" stroke="currentColor" stroke-width="2"/>
+  <rect x="10" y="10" width="4" height="2" rx="1" fill="currentColor"/>
+</svg>
+
+{%- when 'axe' -%}
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {{ attributes }}>
+  <path d="M7 4L17 14M7 4L4 7L14 17L17 14M7 4L14 11" stroke="currentColor" stroke-width="2"/>
+  <path d="M14 17L19 22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>
+
+{%- when 'fire' -%}
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {{ attributes }}>
+  <path d="M12 2C12 2 8 6 8 11C8 14 9.79086 16 12 16C14.2091 16 16 14 16 11C16 6 12 2 12 2Z" stroke="currentColor" stroke-width="2"/>
+  <path d="M12 16C12 16 10 18 10 20C10 21.1046 10.8954 22 12 22C13.1046 22 14 21.1046 14 20C14 18 12 16 12 16Z" stroke="currentColor" stroke-width="2"/>
+</svg>
+
+{%- when 'sun' -%}
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {{ attributes }}>
+  <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+  <path d="M12 2V4M12 20V22M4 12H2M22 12H20M19.07 4.93L17.66 6.34M6.34 17.66L4.93 19.07M19.07 19.07L17.66 17.66M6.34 6.34L4.93 4.93" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>
+
+{%- when 'moon' -%}
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {{ attributes }}>
+  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2"/>
+</svg>
+
+{%- when 'star' -%}
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {{ attributes }}>
+  <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+</svg>
+
+{%- endcase -%}

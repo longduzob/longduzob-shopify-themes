@@ -1,6 +1,8 @@
-# Outdoor Adventure Shopify Theme
+# Wilderness Expedition - Shopify Theme
 
-A modern, responsive Shopify theme designed for outdoor and adventure retail businesses. This theme combines stunning visuals with powerful e-commerce functionality to showcase products and inspire customers to explore the great outdoors.
+**L'équipement des vrais aventuriers**
+
+Un thème Shopify robuste et authentique conçu pour les boutiques outdoor, bivouac, randonnée et survie. Ce thème minimaliste combine une esthétique nature authentique avec des fonctionnalités e-commerce puissantes pour inspirer vos clients à partir à l'aventure.
 
 ## 📋 Table of Contents
 
@@ -11,14 +13,30 @@ A modern, responsive Shopify theme designed for outdoor and adventure retail bus
 - [Support](#support)
 - [License](#license)
 
+## 🏔️ Identité Visuelle
+
+### Couleurs
+- **Vert forêt (#1B4332)** - Couleur principale, évoque la nature et l'aventure
+- **Gris (#6B7280)** - Texte et éléments secondaires
+- **Beige (#D4A574)** - Accents chaleureux, boutons CTA
+- **Blanc cassé (#F5F3ED)** - Arrière-plans doux et naturels
+
+### Typographie
+- **Poppins Bold** - Titres puissants et impactants
+- **Open Sans** - Corps de texte lisible et moderne
+
+### Style
+Minimaliste robuste avec une touche nature authentique, combinant simplicité et durabilité pour refléter l'esprit outdoor.
+
 ## ✨ Features
 
 ### Design & Layout
-- **Responsive Design**: Fully optimized for mobile, tablet, and desktop devices
-- **Modern Aesthetic**: Clean, minimalist design with outdoor-inspired color palette
-- **Hero Section**: Eye-catching hero banner with optional video background
-- **Product Showcase**: Grid and carousel layouts for product displays
-- **High Performance**: Optimized loading speeds and Shopify best practices
+- **Responsive Design**: Optimisé pour mobile, tablette et desktop
+- **Hero Section**: Bannière immersive avec image nature et appel à l'action
+- **6 Catégories**: Grille de catégories avec icônes SVG (Sacs à dos, Tentes, Éclairage, Escalade, Cuisine, Équipement)
+- **Carrousel Produits**: Best-sellers mis en avant avec navigation fluide
+- **Galerie Communauté**: Showcase des photos utilisateurs avec hashtag
+- **Performance Optimale**: Temps de chargement rapides selon les best practices Shopify
 
 ### Product Features
 - **Rich Product Pages**: Detailed product information with image galleries

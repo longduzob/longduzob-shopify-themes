@@ -1,0 +1,75 @@
+{% comment %}
+  Main Page Content
+{% endcomment %}
+
+<style>
+  .page-content {
+    padding: var(--spacing-2xl) 0;
+    background-color: var(--color-white);
+  }
+
+  .page-content__container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+  }
+
+  .page-content__title {
+    font-size: 2.5rem;
+    color: var(--color-forest-green);
+    margin-bottom: var(--spacing-xl);
+    text-align: center;
+  }
+
+  .page-content__body {
+    line-height: 1.8;
+    color: var(--color-gray);
+  }
+
+  .page-content__body h2,
+  .page-content__body h3,
+  .page-content__body h4 {
+    color: var(--color-forest-green);
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .page-content__body p {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .page-content__body ul,
+  .page-content__body ol {
+    margin-bottom: var(--spacing-md);
+    padding-left: var(--spacing-lg);
+  }
+
+  .page-content__body li {
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .page-content__body a {
+    color: var(--color-beige);
+    text-decoration: underline;
+  }
+
+  .page-content__body a:hover {
+    color: var(--color-forest-green);
+  }
+</style>
+
+<div class="page-content">
+  <div class="page-content__container">
+    <h1 class="page-content__title">{{ page.title }}</h1>
+    <div class="page-content__body">
+      {{ page.content }}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Page",
+  "settings": []
+}
+{% endschema %}
