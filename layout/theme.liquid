@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="{{ shop.locale }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page_title }}{% if current_tags %} — {{ current_tags | join: ', ' }}{% endif %}</title>
+  <meta name="description" content="{{ page_description | escape }}">
+  
+  {{ content_for_header }}
+  
+  <link rel="stylesheet" href="{{ 'style.css' | asset_url }}">
+  <script src="{{ 'script.js' | asset_url }}" defer="defer"></script>
+</head>
+<body class="template-{{ template }}">
+  
+  {% section 'header' %}
+  
+  <main id="MainContent" class="content-wrapper">
+    {{ content_for_layout }}
+  </main>
+  
+  {% section 'footer' %}
+  
+</body>
+</html>
