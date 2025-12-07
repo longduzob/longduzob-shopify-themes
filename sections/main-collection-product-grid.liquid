@@ -120,8 +120,9 @@
       {%- endif -%}
     </div>
 
+    {%- paginate collection.products by section.settings.products_per_page -%}
     <div class="collection-grid__products">
-      {%- for product in collection.products -%}
+      {%- for product in paginate.items -%}
         <div class="product-card">
           <a href="{{ product.url }}">
             {%- if product.featured_image -%}
@@ -176,6 +177,7 @@
         {%- endif -%}
       </div>
     {%- endif -%}
+    {%- endpaginate -%}
   </div>
 </div>
 

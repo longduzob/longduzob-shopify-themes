@@ -184,7 +184,7 @@
       <p class="newsletter__subtitle">{{ section.settings.subtitle }}</p>
     {%- endif -%}
 
-    <form class="newsletter-form" method="post" action="/contact#newsletter-form">
+    <form class="newsletter-form" method="post" action="{{ routes.contact_url }}#newsletter-form">
       <input type="hidden" name="contact[tags]" value="newsletter">
       <input 
         type="email" 
