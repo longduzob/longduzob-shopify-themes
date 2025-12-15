@@ -40,6 +40,38 @@
     }
   }
 
+  function initProductGallery() {
+    qsa('.product-gallery').forEach(gallery => {
+      const mainImage = qs('.product-main-media img', gallery);
+      const thumbs = qsa('.product-thumb img', gallery);
+      if (!mainImage || !thumbs.length) return;
+
+      const setActive = (activeIndex) => {
+        thumbs.forEach((thumb, idx) => {
+          thumb.parentElement.classList.toggle('is-active', idx === activeIndex);
+        });
+      };
+
+      thumbs.forEach((thumb, index) => {
+        thumb.addEventListener('click', () => {
+          mainImage.src = thumb.src.replace(/width=\d+/, 'width=1000');
+          mainImage.alt = thumb.alt;
+          setActive(index);
+        });
+        thumb.addEventListener('keyup', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            thumb.click();
+          }
+        });
+        thumb.parentElement.setAttribute('role', 'button');
+        thumb.parentElement.setAttribute('tabindex', '0');
+      });
+
+      setActive(0);
+    });
+  }
+
   function initCarousels() {
     qsa('[data-slider]').forEach(slider => {
       const track = qs('[data-slider-track]', slider);
@@ -96,5 +128,6 @@
     initProductBadges();
     initCarousels();
     initVariants();
+    initProductGallery();
   });
 })();

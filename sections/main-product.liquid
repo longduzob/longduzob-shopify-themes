@@ -66,8 +66,16 @@
               {{ product.description }}
             </div>
           {% when 'share' %}
-            <div {{ block.shopify_attributes }}>
-              <a href="https://www.facebook.com/sharer/sharer.php?u={{ shop.url | append: product.url }}">Partager</a>
+            <div class="share" {{ block.shopify_attributes }}>
+              <span>Partager :</span>
+              <div class="share__icons">
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ shop.url | append: product.url }}" aria-label="Partager sur Facebook" target="_blank" rel="noreferrer">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 10h3.5l.5-3H13V5.5c0-.9.3-1.5 1.8-1.5H17V1.1A20.8 20.8 0 0 0 14.7 1 4.3 4.3 0 0 0 10 5.6V7H7v3h3v9h3Z"/></svg>
+                </a>
+                <a href="https://pinterest.com/pin/create/button/?url={{ shop.url | append: product.url }}&media={{ product.featured_image | image_url }}&description={{ product.title | escape }}" aria-label="Enregistrer sur Pinterest" target="_blank" rel="noreferrer">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5A7.5 7.5 0 0 0 8.6 16.8l.4-1.7c.2-.8.4-1.6.5-2.4l-.1-.5c-.3-.7-.1-1.5.5-2 .8-.6 1.5-.2 1.6.7.1.5 0 1-.2 1.6l-.6 2.4c-.1.6 0 1.3.4 1.8a7.5 7.5 0 1 0 .5-14Zm0 2a5.5 5.5 0 0 1 5.3 7c-.6 2-2.3 3-4.4 3h-.4l.3-1.2c.5-2 .1-4.1-2-4.1-1.4 0-2.6 1-2.6 2.4a2 2 0 0 0 .1.6l-.5 2C5.8 10.1 8.4 4.5 12 4.5Z"/></svg>
+                </a>
+              </div>
             </div>
         {% endcase %}
       {% endfor %}

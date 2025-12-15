@@ -11,7 +11,9 @@
     </div>
   </div>
   <div class="container header__main">
-    <button class="mobile-toggle" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+    <button class="mobile-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+    </button>
     <a href="/" class="logo">
       {% if settings.logo %}
         <img src="{{ settings.logo | image_url: width: 120 }}" alt="{{ shop.name }}" loading="lazy">
@@ -29,12 +31,17 @@
     </nav>
     <div class="header__actions">
       {% if settings.enable_search %}
-        <a class="header__icon-btn" href="/search" aria-label="Rechercher">🔍</a>
+        <a class="header__icon-btn" href="/search" aria-label="Rechercher">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.9.9l.3.3v.8l5 5 1.5-1.5Zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9Z"/></svg>
+        </a>
       {% endif %}
-      <a class="header__icon-btn" href="/cart" aria-label="Panier">🛒</a>
+      <a class="header__icon-btn" href="/cart" aria-label="Panier">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6.3 6 1 9h9.4l1-9Zm-2-3h15.4l-1.5 14H7.8l-1.5-14ZM9 21a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm9 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>
+      </a>
       <div class="header__cta">
         <a class="btn btn-primary" href="{{ section.settings.cta_link }}">{{ section.settings.cta_text }}</a>
       </div>
+      {% render 'social-links', class: 'header__social' %}
     </div>
     <div class="mobile-menu" aria-label="Menu mobile">
       {% for link in linklists.main-menu.links %}

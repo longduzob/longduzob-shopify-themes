@@ -1,4 +1,10 @@
-<section class="hero">
+{% liquid
+  assign hero_bg = section.settings.background_image | image_url: width: 1800
+  if hero_bg == blank
+    assign hero_bg = 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=80'
+  endif
+%}
+<section class="hero" style="--hero-bg: url('{{ hero_bg }}')">
   <div class="container hero__grid">
     <div class="hero__content">
       <span class="eyebrow">{{ section.settings.kicker }}</span>
@@ -34,6 +40,7 @@
     {"type": "text", "id": "kicker", "label": "Kicker", "default": "Bushcraft premium"},
     {"type": "text", "id": "title", "label": "Titre", "default": "Prépare ta prochaine sortie avec un setup prêt à vendre"},
     {"type": "textarea", "id": "subtitle", "label": "Sous-titre", "default": "Un thème Shopify optimisé conversion avec storytelling outdoor, badges de confiance et sections 100% éditables."},
+    {"type": "image_picker", "id": "background_image", "label": "Image de fond"},
     {"type": "text", "id": "primary_label", "label": "CTA principal", "default": "Voir les best-sellers"},
     {"type": "url", "id": "primary_link", "label": "Lien CTA principal", "default": "/collections/all"},
     {"type": "text", "id": "secondary_label", "label": "CTA secondaire", "default": "Découvrir la collection nature"},
