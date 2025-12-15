@@ -1,25 +1,26 @@
 <!doctype html>
-<html lang="{{ shop.locale }}">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ page_title }}{% if current_tags %} — {{ current_tags | join: ', ' }}{% endif %}</title>
-  <meta name="description" content="{{ page_description | escape }}">
-  
-  {{ content_for_header }}
-  
-  <link rel="stylesheet" href="{{ 'style.css' | asset_url }}">
-  <script src="{{ 'script.js' | asset_url }}" defer="defer"></script>
-</head>
-<body class="template-{{ template }}">
-  
-  {% section 'header' %}
-  
-  <main id="MainContent" class="content-wrapper">
-    {{ content_for_layout }}
-  </main>
-  
-  {% section 'footer' %}
-  
-</body>
+<html lang="{{ request.locale.iso_code | default: 'fr' }}">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ page_title }}{% if current_tags %} — {{ current_tags | join: ', ' }}{% endif %}</title>
+    <meta name="description" content="{{ page_description | escape }}">
+    {{ content_for_header }}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ 'style.css' | asset_url }}">
+    <script src="{{ 'script.js' | asset_url }}" defer></script>
+  </head>
+  <body class="template-{{ template | handle }}">
+    <div class="page">
+      {% section 'header' %}
+      <main id="MainContent" class="page-main" role="main">
+        {{ content_for_layout }}
+      </main>
+      {% section 'footer' %}
+    </div>
+  </body>
 </html>

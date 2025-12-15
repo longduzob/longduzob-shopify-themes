@@ -1,0 +1,56 @@
+<section class="section">
+  <div class="container section-header">
+    <span class="eyebrow">{{ section.settings.kicker }}</span>
+    <h2>{{ section.settings.title }}</h2>
+    <p>{{ section.settings.subtitle }}</p>
+  </div>
+  <div class="container collection-grid">
+    {% for block in section.blocks %}
+      {% assign collection = collections[block.settings.collection] %}
+      <a class="collection-card" href="{{ collection.url | default: '#' }}">
+        {% if collection.image %}
+          <img src="{{ collection.image | image_url: width: 1200 }}" alt="{{ collection.title }}" loading="lazy">
+        {% else %}
+          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=80" alt="Collection">
+        {% endif %}
+        <div class="collection-card__body">
+          <div class="collection-card__tag">{{ block.settings.tag | default: 'Nouveauté' }}</div>
+          <div class="collection-card__title">{{ collection.title | default: 'Collection outdoor' }}</div>
+          <p>{{ block.settings.copy }}</p>
+        </div>
+      </a>
+    {% else %}
+      <a class="collection-card" href="/collections/all">
+        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=80" alt="Collection">
+        <div class="collection-card__body">
+          <div class="collection-card__tag">Prêt à expédier</div>
+          <div class="collection-card__title">Packs bushcraft</div>
+          <p>Sélection bundle pour panier moyen boosté.</p>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collections phares",
+  "settings": [
+    {"type": "text", "id": "kicker", "label": "Kicker", "default": "Univers"},
+    {"type": "text", "id": "title", "label": "Titre", "default": "Guide tes visiteurs"},
+    {"type": "textarea", "id": "subtitle", "label": "Sous-titre", "default": "Mets en avant tes familles produits les plus rentables."}
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {"type": "collection", "id": "collection", "label": "Collection"},
+        {"type": "text", "id": "tag", "label": "Tag", "default": "Best-seller"},
+        {"type": "textarea", "id": "copy", "label": "Texte", "default": "Story courte qui convertit."}
+      ]
+    }
+  ],
+  "presets": [{"name": "Collections phares"}]
+}
+{% endschema %}

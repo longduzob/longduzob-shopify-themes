@@ -1,0 +1,61 @@
+<section class="section">
+  <div class="container section-header">
+    <span class="eyebrow">{{ section.settings.kicker }}</span>
+    <h2>{{ section.settings.title }}</h2>
+    <p>{{ section.settings.subtitle }}</p>
+  </div>
+  <div class="container" data-slider>
+    <div class="product-grid" data-slider-track>
+      {% assign featured_collection = collections[section.settings.collection] %}
+      {% for product in featured_collection.products | slice: 0, section.settings.products_to_show %}
+        <article class="product-card" data-slide>
+          <div class="product-card__media">
+            <a href="{{ product.url }}">
+              <img src="{{ product.featured_image | image_url: width: 700 }}" alt="{{ product.title }}" loading="lazy">
+            </a>
+          </div>
+          <div class="product-card__meta">
+            <span class="badge-hot">Top ventes</span>
+            <span class="price">{{ product.price | money }}</span>
+          </div>
+          <h3>{{ product.title }}</h3>
+          <p>{{ product.description | strip_html | truncate: 90 }}</p>
+          <a class="btn btn-primary" href="{{ product.url }}">Voir la fiche</a>
+        </article>
+      {% else %}
+        {% for i in (1..4) %}
+          <article class="product-card" data-slide>
+            <div class="product-card__media">
+              <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=700&q=80" alt="Produit placeholder">
+            </div>
+            <div class="product-card__meta">
+              <span class="badge-hot">Top ventes</span>
+              <span class="price">€89,00</span>
+            </div>
+            <h3>Kit outdoor complet</h3>
+            <p>Exemple de description pour montrer la mise en page.</p>
+            <a class="btn btn-primary" href="/collections/all">Voir la fiche</a>
+          </article>
+        {% endfor %}
+      {% endfor %}
+    </div>
+    <div class="header__actions" style="margin-top:18px; justify-content:flex-end;">
+      <button class="header__icon-btn" type="button" data-slider-prev aria-label="Précédent">←</button>
+      <button class="header__icon-btn" type="button" data-slider-next aria-label="Suivant">→</button>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Produits en avant",
+  "settings": [
+    {"type": "text", "id": "kicker", "label": "Kicker", "default": "Best-sellers"},
+    {"type": "text", "id": "title", "label": "Titre", "default": "Ce qui se vend le mieux"},
+    {"type": "textarea", "id": "subtitle", "label": "Sous-titre", "default": "Mets tes références champions en avant."},
+    {"type": "collection", "id": "collection", "label": "Collection source"},
+    {"type": "range", "id": "products_to_show", "label": "Nombre de produits", "min": 4, "max": 12, "step": 1, "default": 8}
+  ],
+  "presets": [{"name": "Produits en avant"}]
+}
+{% endschema %}

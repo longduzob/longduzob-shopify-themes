@@ -1,0 +1,42 @@
+<section class="brand-strip">
+  <div class="brand-strip__title">{{ section.settings.title }}</div>
+  <div class="brand-strip__marquee" aria-label="Marques partenaires">
+    <div class="brand-strip__row" data-marquee data-speed="22">
+      {% for block in section.blocks %}
+        <div class="brand-logo">
+          {% if block.settings.logo_image %}
+            <img src="{{ block.settings.logo_image | image_url: width: 180 }}" alt="{{ block.settings.label | default: 'Marque' }}" loading="lazy">
+          {% else %}
+            {{ block.settings.label }}
+          {% endif %}
+        </div>
+      {% else %}
+        <div class="brand-logo">MSR</div>
+        <div class="brand-logo">Patagonia</div>
+        <div class="brand-logo">Bushcraft Essentials</div>
+        <div class="brand-logo">Nitecore</div>
+        <div class="brand-logo">Hydro Flask</div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bande logos",
+  "settings": [
+    {"type": "text", "id": "title", "label": "Titre", "default": "Les marques que vos clients adorent"}
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Logo texte",
+      "settings": [
+        {"type": "text", "id": "label", "label": "Nom de la marque", "default": "Nom de marque"},
+        {"type": "image_picker", "id": "logo_image", "label": "Logo (optionnel)"}
+      ]
+    }
+  ],
+  "presets": [{"name": "Bande logos"}]
+}
+{% endschema %}

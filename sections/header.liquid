@@ -1,358 +1,71 @@
-{% comment %}
-  Header Section - Wilderness Expedition
-  Navigation, logo, search, and cart
-{% endcomment %}
-
-<style>
-  .header {
-    background-color: var(--color-white);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    position: relative;
-    z-index: 1000;
-    transition: transform 0.3s ease;
-  }
-
-  .header--sticky {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    animation: slideDown 0.3s ease;
-  }
-
-  .header--hidden {
-    transform: translateY(-100%);
-  }
-
-  @keyframes slideDown {
-    from {
-      transform: translateY(-100%);
-    }
-    to {
-      transform: translateY(0);
-    }
-  }
-
-  .header__container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 1.5rem;
-    max-width: 1280px;
-    margin: 0 auto;
-  }
-
-  .header__logo {
-    display: flex;
-    align-items: center;
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--color-forest-green);
-    text-decoration: none;
-  }
-
-  .header__logo-icon {
-    width: 40px;
-    height: 40px;
-    margin-right: 0.5rem;
-  }
-
-  .header__nav {
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-  }
-
-  .header__nav-list {
-    display: flex;
-    list-style: none;
-    gap: 2rem;
-    margin: 0;
-    padding: 0;
-  }
-
-  .header__nav-item {
-    position: relative;
-  }
-
-  .header__nav-link {
-    font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: 0.95rem;
-    color: var(--color-forest-green);
-    text-decoration: none;
-    transition: color 0.2s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .header__nav-link:hover {
-    color: var(--color-beige);
-  }
-
-  .header__actions {
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-  }
-
-  .header__action-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.5rem;
-    color: var(--color-forest-green);
-    transition: color 0.2s ease;
-    position: relative;
-  }
-
-  .header__action-btn:hover {
-    color: var(--color-beige);
-  }
-
-  .header__action-btn svg {
-    width: 24px;
-    height: 24px;
-  }
-
-  .cart-count {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background-color: var(--color-beige);
-    color: var(--color-white);
-    font-size: 0.7rem;
-    font-weight: 700;
-    border-radius: 50%;
-    width: 18px;
-    height: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .mobile-menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.5rem;
-    color: var(--color-forest-green);
-  }
-
-  .mobile-menu-toggle svg {
-    width: 28px;
-    height: 28px;
-  }
-
-  /* Mobile Menu */
-  .mobile-menu {
-    display: none;
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 80%;
-    max-width: 300px;
-    height: 100vh;
-    background-color: var(--color-white);
-    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
-    transition: right 0.3s ease;
-    z-index: 1001;
-    overflow-y: auto;
-  }
-
-  .mobile-menu.active {
-    right: 0;
-  }
-
-  .mobile-menu__header {
-    padding: 1.5rem;
-    border-bottom: 1px solid #E5E7EB;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .mobile-menu__close {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.5rem;
-    color: var(--color-forest-green);
-  }
-
-  .mobile-menu__list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .mobile-menu__item {
-    border-bottom: 1px solid #E5E7EB;
-  }
-
-  .mobile-menu__link {
-    display: block;
-    padding: 1rem 1.5rem;
-    color: var(--color-forest-green);
-    text-decoration: none;
-    font-weight: 600;
-  }
-
-  .mobile-menu__link:hover {
-    background-color: var(--color-off-white);
-    color: var(--color-beige);
-  }
-
-  /* Responsive */
-  @media (max-width: 968px) {
-    .header__nav {
-      display: none;
-    }
-
-    .mobile-menu-toggle,
-    .mobile-menu {
-      display: block;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .header__container {
-      padding: 1rem;
-    }
-
-    .header__logo {
-      font-size: 1.25rem;
-    }
-
-    .header__actions {
-      gap: 1rem;
-    }
-  }
-</style>
-
-<header class="header" role="banner">
-  <div class="header__container">
-    {%- if section.settings.logo -%}
-      <a href="{{ routes.root_url }}" class="header__logo">
-        <img src="{{ section.settings.logo | image_url: width: 200 }}" 
-             alt="{{ shop.name }}" 
-             class="header__logo-image"
-             width="120"
-             height="40">
-      </a>
-    {%- else -%}
-      <a href="{{ routes.root_url }}" class="header__logo">
-        <svg class="header__logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20 5L5 15L20 25L35 15L20 5Z" fill="#1B4332"/>
-          <path d="M5 25L20 35L35 25" stroke="#1B4332" stroke-width="2"/>
-          <path d="M20 15V35" stroke="#D4A574" stroke-width="2"/>
-        </svg>
-        <span>{{ section.settings.logo_text | default: shop.name }}</span>
-      </a>
-    {%- endif -%}
-
-    <nav class="header__nav" role="navigation">
-      <ul class="header__nav-list">
-        {%- for link in linklists[section.settings.menu].links -%}
-          <li class="header__nav-item">
-            <a href="{{ link.url }}" class="header__nav-link">
-              {{ link.title }}
-            </a>
-          </li>
-        {%- endfor -%}
-      </ul>
+<header class="header">
+  <div class="header__top">
+    <div class="container header__top-inner">
+      <span class="eyebrow">{{ section.settings.top_label }}</span>
+      <div class="header__marquee" aria-label="Offres clés">
+        <span data-marquee data-speed="16">{{ section.settings.top_message }}</span>
+      </div>
+      {% if section.settings.top_link != blank %}
+        <a class="btn btn-ghost" href="{{ section.settings.top_link }}">{{ section.settings.top_link_text }}</a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="container header__main">
+    <button class="mobile-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+    </button>
+    <a href="/" class="logo">
+      {% if settings.logo %}
+        <img src="{{ settings.logo | image_url: width: 120 }}" alt="{{ shop.name }}" loading="lazy">
+      {% endif %}
+      <span>{{ settings.logo_text | default: shop.name }}</span>
+    </a>
+    <nav class="nav" aria-label="Menu principal">
+      {% for link in linklists.main-menu.links %}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {% else %}
+        <a href="/collections/all">Boutique</a>
+        <a href="/collections/nouveautes">Nouveautés</a>
+        <a href="/pages/contact">Contact</a>
+      {% endfor %}
     </nav>
-
     <div class="header__actions">
-      {%- if section.settings.enable_search -%}
-        <button class="header__action-btn search-toggle" aria-label="Rechercher">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <circle cx="11" cy="11" r="8" stroke-width="2"/>
-            <path d="M21 21L16.65 16.65" stroke-width="2"/>
-          </svg>
-        </button>
-      {%- endif -%}
-
-      <a href="{{ routes.account_url }}" class="header__action-btn" aria-label="Mon compte">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke-width="2"/>
-          <circle cx="12" cy="7" r="4" stroke-width="2"/>
-        </svg>
+      {% if settings.enable_search %}
+        <a class="header__icon-btn" href="/search" aria-label="Rechercher">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.9.9l.3.3v.8l5 5 1.5-1.5Zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9Z"/></svg>
+        </a>
+      {% endif %}
+      <a class="header__icon-btn" href="/cart" aria-label="Panier">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6.3 6 1 9h9.4l1-9Zm-2-3h15.4l-1.5 14H7.8l-1.5-14ZM9 21a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm9 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>
       </a>
-
-      <a href="{{ routes.cart_url }}" class="header__action-btn cart-toggle" aria-label="Panier">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path d="M9 2L7 6" stroke-width="2"/>
-          <path d="M15 2L17 6" stroke-width="2"/>
-          <path d="M1 6H23L21 20H3L1 6Z" stroke-width="2"/>
-        </svg>
-        {%- if cart.item_count > 0 -%}
-          <span class="cart-count">{{ cart.item_count }}</span>
-        {%- endif -%}
-      </a>
-
-      <button class="mobile-menu-toggle" aria-label="Menu" aria-expanded="false">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path d="M3 12H21" stroke-width="2"/>
-          <path d="M3 6H21" stroke-width="2"/>
-          <path d="M3 18H21" stroke-width="2"/>
-        </svg>
-      </button>
+      <div class="header__cta">
+        <a class="btn btn-primary" href="{{ section.settings.cta_link }}">{{ section.settings.cta_text }}</a>
+      </div>
+      {% render 'social-links', class: 'header__social' %}
+    </div>
+    <div class="mobile-menu" aria-label="Menu mobile">
+      {% for link in linklists.main-menu.links %}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {% else %}
+        <a href="/collections/all">Boutique</a>
+        <a href="/collections/nouveautes">Nouveautés</a>
+        <a href="/pages/contact">Contact</a>
+      {% endfor %}
     </div>
   </div>
 </header>
 
-{%- comment -%} Mobile Menu {%- endcomment -%}
-<div class="mobile-menu">
-  <div class="mobile-menu__header">
-    <span class="header__logo">{{ section.settings.logo_text | default: shop.name }}</span>
-    <button class="mobile-menu__close" aria-label="Fermer le menu">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-        <path d="M18 6L6 18" stroke-width="2"/>
-        <path d="M6 6L18 18" stroke-width="2"/>
-      </svg>
-    </button>
-  </div>
-  <ul class="mobile-menu__list">
-    {%- for link in linklists[section.settings.menu].links -%}
-      <li class="mobile-menu__item">
-        <a href="{{ link.url }}" class="mobile-menu__link">
-          {{ link.title }}
-        </a>
-      </li>
-    {%- endfor -%}
-  </ul>
-</div>
-
 {% schema %}
 {
-  "name": "En-tête",
+  "name": "En-tête outdoor",
   "settings": [
-    {
-      "type": "image_picker",
-      "id": "logo",
-      "label": "Logo"
-    },
-    {
-      "type": "text",
-      "id": "logo_text",
-      "label": "Texte du logo",
-      "default": "Wilderness Expedition"
-    },
-    {
-      "type": "link_list",
-      "id": "menu",
-      "label": "Menu",
-      "default": "main-menu"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_search",
-      "label": "Activer la recherche",
-      "default": true
-    }
-  ]
+    {"type": "text", "id": "top_label", "label": "Label de confiance", "default": "Outdoor certifié"},
+    {"type": "text", "id": "top_message", "label": "Message défilant", "default": "Livraison offerte dès 60€ • Retours 30 jours • Support réactif 7/7 • Paiements sécurisés"},
+    {"type": "url", "id": "top_link", "label": "Lien du bouton"},
+    {"type": "text", "id": "top_link_text", "label": "Texte du bouton", "default": "Offres du jour"},
+    {"type": "text", "id": "cta_text", "label": "Texte CTA principal", "default": "Découvrir les best-sellers"},
+    {"type": "url", "id": "cta_link", "label": "Lien CTA principal", "default": "/collections/all"}
+  ],
+  "presets": [{"name": "En-tête outdoor"}]
 }
 {% endschema %}
