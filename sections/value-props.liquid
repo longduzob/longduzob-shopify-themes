@@ -1,0 +1,41 @@
+<section class="section">
+  <div class="container section-header">
+    <span class="eyebrow">{{ section.settings.kicker }}</span>
+    <h2>{{ section.settings.title }}</h2>
+    <p>{{ section.settings.subtitle }}</p>
+  </div>
+  <div class="container value-grid">
+    {% for block in section.blocks %}
+      <article class="value-card">
+        <strong>{{ block.settings.title }}</strong>
+        <p>{{ block.settings.text }}</p>
+      </article>
+    {% else %}
+      <article class="value-card"><strong>Livraison express</strong><p>Colis expédié sous 24/48h pour capter les acheteurs impulsifs.</p></article>
+      <article class="value-card"><strong>Qualité terrain</strong><p>Produits outdoor testés en conditions réelles, rassurant pour le sav.</p></article>
+      <article class="value-card"><strong>Support 7/7</strong><p>Chat et email, réponse rapide pour lever les derniers doutes.</p></article>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Arguments de vente",
+  "settings": [
+    {"type": "text", "id": "kicker", "label": "Kicker", "default": "Ce qui fait vendre"},
+    {"type": "text", "id": "title", "label": "Titre", "default": "Pense conversion avant tout"},
+    {"type": "textarea", "id": "subtitle", "label": "Sous-titre", "default": "Badges de confiance, logistique maîtrisée et storytelling pour rassurer."}
+  ],
+  "blocks": [
+    {
+      "type": "prop",
+      "name": "Argument",
+      "settings": [
+        {"type": "text", "id": "title", "label": "Titre", "default": "Valeur ajoutée"},
+        {"type": "textarea", "id": "text", "label": "Texte", "default": "Détail qui rassure et déclenche l'achat."}
+      ]
+    }
+  ],
+  "presets": [{"name": "Arguments de vente"}]
+}
+{% endschema %}

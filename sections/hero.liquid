@@ -1,343 +1,47 @@
-{% comment %}
-  Hero Section - Wilderness Expedition
-  Large hero banner with image and CTA
-{% endcomment %}
-
-<style>
-  .hero {
-    position: relative;
-    min-height: 600px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    background-color: var(--color-forest-green);
-  }
-
-  .hero__background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 1;
-  }
-
-  .hero__overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(27, 67, 50, 0.7) 0%, rgba(27, 67, 50, 0.4) 100%);
-    z-index: 2;
-  }
-
-  .hero__content {
-    position: relative;
-    z-index: 3;
-    text-align: center;
-    color: var(--color-white);
-    max-width: 800px;
-    padding: 2rem;
-  }
-
-  .hero__badge {
-    display: inline-block;
-    background-color: var(--color-beige);
-    color: var(--color-white);
-    padding: 0.5rem 1.5rem;
-    border-radius: var(--radius-full);
-    font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: 0.875rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
-  }
-
-  .hero__title {
-    font-size: 3.5rem;
-    font-family: var(--font-heading);
-    font-weight: 700;
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
-    color: var(--color-white);
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  }
-
-  .hero__subtitle {
-    font-size: 1.25rem;
-    line-height: 1.6;
-    margin-bottom: 2rem;
-    opacity: 0.95;
-  }
-
-  .hero__actions {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .hero__cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 1rem 2rem;
-    font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: 1rem;
-    border-radius: var(--radius-full);
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-  }
-
-  .hero__cta--primary {
-    background-color: var(--color-beige);
-    color: var(--color-white);
-  }
-
-  .hero__cta--primary:hover {
-    background-color: #C49564;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    color: var(--color-white);
-  }
-
-  .hero__cta--secondary {
-    background-color: transparent;
-    color: var(--color-white);
-    border: 2px solid var(--color-white);
-  }
-
-  .hero__cta--secondary:hover {
-    background-color: var(--color-white);
-    color: var(--color-forest-green);
-  }
-
-  .hero__features {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 3rem;
-    z-index: 3;
-  }
-
-  .hero__feature {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    color: var(--color-white);
-  }
-
-  .hero__feature-icon {
-    width: 24px;
-    height: 24px;
-    opacity: 0.9;
-  }
-
-  .hero__feature-text {
-    font-size: 0.95rem;
-    font-weight: 600;
-  }
-
-  /* Scroll indicator */
-  .hero__scroll {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 3;
-    animation: bounce 2s infinite;
-  }
-
-  @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-      transform: translateX(-50%) translateY(0);
-    }
-    40% {
-      transform: translateX(-50%) translateY(-10px);
-    }
-    60% {
-      transform: translateX(-50%) translateY(-5px);
-    }
-  }
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    .hero {
-      min-height: 500px;
-    }
-
-    .hero__title {
-      font-size: 2.5rem;
-    }
-
-    .hero__subtitle {
-      font-size: 1.1rem;
-    }
-
-    .hero__features {
-      flex-direction: column;
-      gap: 1rem;
-      bottom: 1rem;
-    }
-
-    .hero__actions {
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .hero__cta {
-      width: 100%;
-      max-width: 280px;
-      justify-content: center;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .hero {
-      min-height: 400px;
-    }
-
-    .hero__title {
-      font-size: 2rem;
-    }
-
-    .hero__subtitle {
-      font-size: 1rem;
-    }
-
-    .hero__content {
-      padding: 1.5rem;
-    }
-  }
-</style>
-
 <section class="hero">
-  {%- if section.settings.image -%}
-    <img 
-      src="{{ section.settings.image | image_url: width: 1920 }}"
-      srcset="{{ section.settings.image | image_url: width: 768 }} 768w,
-              {{ section.settings.image | image_url: width: 1024 }} 1024w,
-              {{ section.settings.image | image_url: width: 1440 }} 1440w,
-              {{ section.settings.image | image_url: width: 1920 }} 1920w"
-      sizes="100vw"
-      alt="{{ section.settings.title }}"
-      class="hero__background"
-      loading="eager">
-  {%- endif -%}
-  
-  <div class="hero__overlay"></div>
-
-  <div class="hero__content">
-    {%- if section.settings.badge -%}
-      <span class="hero__badge">{{ section.settings.badge }}</span>
-    {%- endif -%}
-
-    {%- if section.settings.title -%}
-      <h1 class="hero__title">{{ section.settings.title }}</h1>
-    {%- endif -%}
-
-    {%- if section.settings.subtitle -%}
-      <p class="hero__subtitle">{{ section.settings.subtitle }}</p>
-    {%- endif -%}
-
-    <div class="hero__actions">
-      {%- if section.settings.button_text_1 -%}
-        <a href="{{ section.settings.button_link_1 }}" class="hero__cta hero__cta--primary">
-          {{ section.settings.button_text_1 }}
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
-            <path d="M5 10H15" stroke-width="2" stroke-linecap="round"/>
-            <path d="M10 5L15 10L10 15" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </a>
-      {%- endif -%}
-
-      {%- if section.settings.button_text_2 -%}
-        <a href="{{ section.settings.button_link_2 }}" class="hero__cta hero__cta--secondary">
-          {{ section.settings.button_text_2 }}
-        </a>
-      {%- endif -%}
+  <div class="container hero__grid">
+    <div class="hero__content">
+      <span class="eyebrow">{{ section.settings.kicker }}</span>
+      <h1>{{ section.settings.title }}</h1>
+      <p>{{ section.settings.subtitle }}</p>
+      <div class="hero__badges">
+        <span class="badge">Matériel bushcraft testé terrain</span>
+        <span class="badge">Expédition 24/48h</span>
+        <span class="badge">Paiements 100% sécurisés</span>
+      </div>
+      <div class="hero__actions">
+        <a class="btn btn-primary" href="{{ section.settings.primary_link }}">{{ section.settings.primary_label }}</a>
+        <a class="btn btn-ghost" href="{{ section.settings.secondary_link }}">{{ section.settings.secondary_label }}</a>
+      </div>
+    </div>
+    <div class="hero__card">
+      <div>
+        <strong>{{ section.settings.side_title }}</strong>
+        <small>{{ section.settings.side_copy }}</small>
+      </div>
+      <div>
+        <strong>{{ section.settings.side_stat }}</strong>
+        <small>clients prêts pour l'aventure</small>
+      </div>
     </div>
   </div>
-
-  {%- if section.settings.show_scroll_indicator -%}
-    <div class="hero__scroll">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white">
-        <path d="M12 5V19" stroke-width="2" stroke-linecap="round"/>
-        <path d="M7 14L12 19L17 14" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-    </div>
-  {%- endif -%}
 </section>
 
 {% schema %}
 {
-  "name": "Hero",
+  "name": "Hero conversion",
   "settings": [
-    {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Image de fond"
-    },
-    {
-      "type": "text",
-      "id": "badge",
-      "label": "Badge",
-      "default": "Nouveau"
-    },
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Titre",
-      "default": "L'équipement des vrais aventuriers"
-    },
-    {
-      "type": "textarea",
-      "id": "subtitle",
-      "label": "Sous-titre",
-      "default": "Prépare ton prochain sommet avec notre sélection d'équipements outdoor authentiques et robustes"
-    },
-    {
-      "type": "text",
-      "id": "button_text_1",
-      "label": "Texte du bouton principal",
-      "default": "Découvrir"
-    },
-    {
-      "type": "url",
-      "id": "button_link_1",
-      "label": "Lien du bouton principal"
-    },
-    {
-      "type": "text",
-      "id": "button_text_2",
-      "label": "Texte du bouton secondaire",
-      "default": "Nos Guides"
-    },
-    {
-      "type": "url",
-      "id": "button_link_2",
-      "label": "Lien du bouton secondaire"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_scroll_indicator",
-      "label": "Afficher l'indicateur de scroll",
-      "default": true
-    }
+    {"type": "text", "id": "kicker", "label": "Kicker", "default": "Bushcraft premium"},
+    {"type": "text", "id": "title", "label": "Titre", "default": "Prépare ta prochaine sortie avec un setup prêt à vendre"},
+    {"type": "textarea", "id": "subtitle", "label": "Sous-titre", "default": "Un thème Shopify optimisé conversion avec storytelling outdoor, badges de confiance et sections 100% éditables."},
+    {"type": "text", "id": "primary_label", "label": "CTA principal", "default": "Voir les best-sellers"},
+    {"type": "url", "id": "primary_link", "label": "Lien CTA principal", "default": "/collections/all"},
+    {"type": "text", "id": "secondary_label", "label": "CTA secondaire", "default": "Découvrir la collection nature"},
+    {"type": "url", "id": "secondary_link", "label": "Lien CTA secondaire", "default": "/collections"},
+    {"type": "text", "id": "side_title", "label": "Bloc latéral titre", "default": "Kit Outdoor complet"},
+    {"type": "text", "id": "side_copy", "label": "Bloc latéral texte", "default": "Sac 60L, tarp, kit feu, couteau carbone, filtre eau."},
+    {"type": "text", "id": "side_stat", "label": "Bloc latéral chiffre", "default": "+12k"}
   ],
-  "presets": [
-    {
-      "name": "Hero"
-    }
-  ]
+  "presets": [{"name": "Hero conversion"}]
 }
 {% endschema %}

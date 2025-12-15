@@ -1,197 +1,28 @@
 [
   {
-    "name": "Identité Visuelle",
+    "name": "Identité visuelle",
     "settings": [
-      {
-        "type": "header",
-        "content": "Couleurs du thème Wilderness Expedition"
-      },
-      {
-        "type": "color",
-        "id": "color_forest_green",
-        "label": "Vert forêt (Principal)",
-        "default": "#1B4332"
-      },
-      {
-        "type": "color",
-        "id": "color_gray",
-        "label": "Gris",
-        "default": "#6B7280"
-      },
-      {
-        "type": "color",
-        "id": "color_beige",
-        "label": "Beige (Accent)",
-        "default": "#D4A574"
-      },
-      {
-        "type": "color",
-        "id": "color_off_white",
-        "label": "Blanc cassé",
-        "default": "#F5F3ED"
-      },
-      {
-        "type": "color",
-        "id": "color_text",
-        "label": "Couleur du texte",
-        "default": "#1A1A1A"
-      }
+      {"type": "color", "id": "color_primary", "label": "Couleur principale", "default": "#0f2d21"},
+      {"type": "color", "id": "color_accent", "label": "Accent", "default": "#f2a950"},
+      {"type": "color", "id": "color_background", "label": "Fond", "default": "#f6f1e8"},
+      {"type": "font_picker", "id": "font_heading", "label": "Police titres", "default": "space_grotesk_n7"},
+      {"type": "font_picker", "id": "font_body", "label": "Police corps", "default": "inter_n4"}
     ]
   },
   {
-    "name": "Typographie",
+    "name": "Navigation",
     "settings": [
-      {
-        "type": "header",
-        "content": "Polices du thème"
-      },
-      {
-        "type": "font_picker",
-        "id": "font_heading",
-        "label": "Police des titres (Poppins Bold recommandé)",
-        "default": "poppins_n7"
-      },
-      {
-        "type": "font_picker",
-        "id": "font_body",
-        "label": "Police du corps (Open Sans recommandé)",
-        "default": "open_sans_n4"
-      },
-      {
-        "type": "range",
-        "id": "font_size_base",
-        "label": "Taille de police de base",
-        "min": 14,
-        "max": 18,
-        "step": 1,
-        "unit": "px",
-        "default": 16
-      }
-    ]
-  },
-  {
-    "name": "En-tête",
-    "settings": [
-      {
-        "type": "image_picker",
-        "id": "logo",
-        "label": "Logo"
-      },
-      {
-        "type": "text",
-        "id": "logo_text",
-        "label": "Texte du logo",
-        "default": "Wilderness Expedition"
-      },
-      {
-        "type": "checkbox",
-        "id": "enable_sticky_header",
-        "label": "En-tête fixe au scroll",
-        "default": true
-      },
-      {
-        "type": "checkbox",
-        "id": "enable_search",
-        "label": "Activer la recherche",
-        "default": true
-      }
+      {"type": "text", "id": "logo_text", "label": "Texte du logo", "default": "Northwoods"},
+      {"type": "image_picker", "id": "logo", "label": "Logo"},
+      {"type": "checkbox", "id": "enable_search", "label": "Activer la recherche", "default": true}
     ]
   },
   {
     "name": "Réseaux sociaux",
     "settings": [
-      {
-        "type": "header",
-        "content": "Liens des réseaux sociaux"
-      },
-      {
-        "type": "url",
-        "id": "social_facebook",
-        "label": "Facebook"
-      },
-      {
-        "type": "url",
-        "id": "social_instagram",
-        "label": "Instagram"
-      },
-      {
-        "type": "url",
-        "id": "social_youtube",
-        "label": "YouTube"
-      },
-      {
-        "type": "url",
-        "id": "social_twitter",
-        "label": "Twitter"
-      }
-    ]
-  },
-  {
-    "name": "Produits",
-    "settings": [
-      {
-        "type": "header",
-        "content": "Affichage des produits"
-      },
-      {
-        "type": "select",
-        "id": "product_image_ratio",
-        "label": "Ratio d'image produit",
-        "options": [
-          {
-            "value": "square",
-            "label": "Carré"
-          },
-          {
-            "value": "portrait",
-            "label": "Portrait"
-          },
-          {
-            "value": "landscape",
-            "label": "Paysage"
-          }
-        ],
-        "default": "square"
-      },
-      {
-        "type": "checkbox",
-        "id": "show_vendor",
-        "label": "Afficher la marque",
-        "default": false
-      },
-      {
-        "type": "checkbox",
-        "id": "enable_product_reviews",
-        "label": "Activer les avis produits",
-        "default": true
-      }
-    ]
-  },
-  {
-    "name": "Panier",
-    "settings": [
-      {
-        "type": "select",
-        "id": "cart_type",
-        "label": "Type de panier",
-        "options": [
-          {
-            "value": "drawer",
-            "label": "Tiroir latéral"
-          },
-          {
-            "value": "page",
-            "label": "Page panier"
-          }
-        ],
-        "default": "drawer"
-      },
-      {
-        "type": "checkbox",
-        "id": "enable_cart_notes",
-        "label": "Activer les notes de commande",
-        "default": true
-      }
+      {"type": "url", "id": "social_instagram", "label": "Instagram"},
+      {"type": "url", "id": "social_facebook", "label": "Facebook"},
+      {"type": "url", "id": "social_youtube", "label": "YouTube"}
     ]
   }
 ]

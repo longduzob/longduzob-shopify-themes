@@ -1,0 +1,43 @@
+<section class="section">
+  <div class="container section-header">
+    <span class="eyebrow">{{ section.settings.kicker }}</span>
+    <h2>{{ section.settings.title }}</h2>
+    <p>{{ section.settings.subtitle }}</p>
+  </div>
+  <div class="container testimonial-grid">
+    {% for block in section.blocks %}
+      <article class="testimonial">
+        <div class="testimonial__stars">★★★★★</div>
+        <p>{{ block.settings.quote }}</p>
+        <strong>{{ block.settings.name }}</strong>
+        <small>{{ block.settings.role }}</small>
+      </article>
+    {% else %}
+      <article class="testimonial"><div class="testimonial__stars">★★★★★</div><p>Thème ultra simple à éditer, conversion en hausse dès la première campagne.</p><strong>Camille</strong><small>Shop outdoor</small></article>
+      <article class="testimonial"><div class="testimonial__stars">★★★★★</div><p>Les badges TripAdvisor rassurent nos nouveaux clients internationaux.</p><strong>Yanis</strong><small>Vendeur EU/US</small></article>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "settings": [
+    {"type": "text", "id": "kicker", "label": "Kicker", "default": "Social proof"},
+    {"type": "text", "id": "title", "label": "Titre", "default": "Ils ont boosté leurs ventes"},
+    {"type": "textarea", "id": "subtitle", "label": "Sous-titre", "default": "Ajoute tes propres avis ou connecte ton app reviews."}
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Témoignage",
+      "settings": [
+        {"type": "textarea", "id": "quote", "label": "Citation", "default": "Un témoignage qui rassure."},
+        {"type": "text", "id": "name", "label": "Nom", "default": "Client satisfait"},
+        {"type": "text", "id": "role", "label": "Rôle", "default": "Acheteur"}
+      ]
+    }
+  ],
+  "presets": [{"name": "Témoignages"}]
+}
+{% endschema %}
